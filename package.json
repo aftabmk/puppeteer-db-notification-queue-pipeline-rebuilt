@@ -1,5 +1,5 @@
 {
-  "name": "puppeteer-db-pipeline-Rebuilt",
+  "name": "puppeteer-db-notification-queue-pipeline-rebuilt",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
