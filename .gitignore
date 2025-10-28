@@ -1,0 +1,6 @@
+# modules
+node_modules
+# json
+*lock.json
+# file
+test.js
