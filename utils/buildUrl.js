@@ -1,20 +1,21 @@
 const { DataStore } = require("../store");
+const { ContentType } = require('../types')
 const { PAGE_URL_1, API_URL_1, API_URL_2 } = require('../constant');
 
 const buildUrl = () => {
   const page1 = {
     id: "option-chain",
-    type: "page",
+    type: ContentType.HTTP,
     url: PAGE_URL_1,
   };
   const api1 = {
     id: "option-chain-contract-info",
-    type: "api",
+    type: ContentType.HTTP,
     url: API_URL_1,
   };
   const api2 = {
     id: "option-chain-expiry",
-    type: "api",
+    type: ContentType.HTTP,
     url: API_URL_2,
   };
 

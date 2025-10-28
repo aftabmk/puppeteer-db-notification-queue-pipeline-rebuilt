@@ -1,4 +1,5 @@
 const { DataStore } = require("../store");
+const { ContentType } = require("../types");
 const { BrowserFactory } = require("../browser");
 
 
@@ -15,19 +16,19 @@ const workflow = async () => {
   });
 
   const cookies = await manager.cookieManager.getCookies("main");
-  DataStore.set("cookie", cookies, "cookie");
+  DataStore.set("cookie", cookies, ContentType.COOKIE);
 
   const result = await manager.evaluator.fetchInsidePage(
     "main",
     DataStore.get("option-chain-contract-info")
   );
-  DataStore.set("result", result, "json");
+  DataStore.set("result", result, ContentType.APPLICATION_JSON);
 
   const option = await manager.evaluator.fetchInsidePage(
     "main",
     DataStore.get("option-chain-expiry")
   );
-  DataStore.set("option", option, "json");
+  DataStore.set("option", option, ContentType.APPLICATION_JSON);
 
   debugger;
   await manager.close();
