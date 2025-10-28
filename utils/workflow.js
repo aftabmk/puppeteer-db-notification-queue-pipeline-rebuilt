@@ -15,7 +15,7 @@ const workflow = async () => {
   });
 
   const cookies = await manager.cookieManager.getCookies("main");
-  DataStore.set("cookie", cookies, "string");
+  DataStore.set("cookie", cookies, "cookie");
 
   const result = await manager.evaluator.fetchInsidePage(
     "main",

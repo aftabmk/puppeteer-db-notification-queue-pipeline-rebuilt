@@ -21,6 +21,8 @@ const buildUrl = () => {
   DataStore.set(page1.id, page1.url, page1.type);
   DataStore.set(api1.id, api1.url, api1.type);
   DataStore.set(api2.id, api2.url, api2.type);
+
+  debugger
 };
 
 module.exports = { buildUrl };
