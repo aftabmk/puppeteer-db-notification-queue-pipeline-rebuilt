@@ -1,5 +1,8 @@
 require('dotenv').config()
 
-const { PAGE_URL_1, API_URL_1,API_URL_2} = process.env;
+let { PAGE_URL_1, API_URL_1,API_URL_2,ALLOWED, DISALLOWED } = process.env;
 
-module.exports = { PAGE_URL_1, API_URL_1, API_URL_2 }
+ALLOWED = JSON.parse(ALLOWED), DISALLOWED = JSON.parse(DISALLOWED);
+debugger
+
+module.exports = { PAGE_URL_1, API_URL_1, API_URL_2, ALLOWED, DISALLOWED }

@@ -23,7 +23,7 @@ const buildUrl = () => {
   DataStore.set(api1.id, api1.url, api1.type);
   DataStore.set(api2.id, api2.url, api2.type);
 
-  debugger
+  // debugger
 };
 
 module.exports = { buildUrl };

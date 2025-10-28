@@ -2,7 +2,7 @@ const { PageManager } = require('../pageManager/PageManager');
 const { CookieManager } = require('../cookieManager/CookieManager');
 const { Evaluator } = require('../evaluator/Evaluator');
 const { RequestInterceptor } = require('../interceptor/RequestInterceptor');
-
+const { ALLOWED,DISALLOWED  } = require('../../constant');
 class BrowserManager {
   constructor(puppeteer, chromium, isLambda) {
     this.puppeteer = puppeteer;
@@ -46,8 +46,8 @@ class BrowserManager {
 
     // ✅ Initialize global interceptor
     this.interceptor = new RequestInterceptor({
-      allowed: ['india.com'],
-      disallowed: ["RealTime","js","xhr","css","png","gif","woff","jpg","ico","svg"]
+      allowed: ALLOWED,
+      disallowed: DISALLOWED
     });
 
     // ✅ Initialize managers (order matters)
