@@ -1,5 +1,5 @@
 {
-  "name": "puppeteer_db_pipeline_Rebuilt",
+  "name": "puppeteer-db-pipeline-Rebuilt",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
