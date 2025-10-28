@@ -5,17 +5,17 @@ const buildUrl = () => {
   const page1 = {
     id: "option-chain",
     type: "page",
-    url: "https://www.nseindia.com/option-chain",
+    url: PAGE_URL_1,
   };
   const api1 = {
     id: "option-chain-contract-info",
     type: "api",
-    url: "https://www.nseindia.com/api/option-chain-contract-info?symbol=NIFTY",
+    url: API_URL_1,
   };
   const api2 = {
     id: "option-chain-expiry",
     type: "api",
-    url: "https://www.nseindia.com/api/option-chain-v3?type=Indices&symbol=NIFTY&expiry=28-Oct-2025",
+    url: API_URL_2,
   };
 
   DataStore.set(page1.id, page1.url, page1.type);

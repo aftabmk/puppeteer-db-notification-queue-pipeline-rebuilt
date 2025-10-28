@@ -4,3 +4,5 @@ node_modules
 *lock.json
 # file
 test.js
+# env
+.env
