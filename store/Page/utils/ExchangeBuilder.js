@@ -2,13 +2,17 @@
 const { EXCHANGE_1, EXCHANGE_2 } = require('../../../constant');
 
 class ExchangeBuilder {
+    #meta;
     constructor(meta) {
         if (new.target === ExchangeBuilder) {
             throw new Error("Cannot instantiate abstract class ExchangeBuilder directly");
         }
-        this.meta = meta;
+        this.#meta = meta;
     }
 
+    getMeta() {
+        return this.#meta;
+    }
     // parent builder method used by subclass
     buildUrl(data) {
         switch (this.meta.EXCHANGE) {

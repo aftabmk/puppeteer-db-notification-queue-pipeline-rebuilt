@@ -11,11 +11,11 @@ class Page extends ExchangeBuilder {
     }
 
     getKey() {
-        return this.meta.EXCHANGE;
+        return this.getMeta().EXCHANGE;
     }
 
     getParams() {
-        const { EXCHANGE, PAGE_URL, API_URL } = this.meta;
+        const { EXCHANGE, PAGE_URL, API_URL } = this.getMeta();
         return { EXCHANGE, PAGE_URL, API_URL };
     }
 
