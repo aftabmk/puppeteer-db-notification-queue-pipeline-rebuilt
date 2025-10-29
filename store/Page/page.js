@@ -49,7 +49,7 @@ class Page {
             this.#expiry_data.push(val);
     }
 
-    getJSONData() {
+    getJsonData() {
         return JSON.stringify(this.#expiry_data);
     }
 }

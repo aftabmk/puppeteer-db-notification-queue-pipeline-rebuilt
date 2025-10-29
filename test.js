@@ -10,9 +10,7 @@ const main = () => {
   DataStore.set(page1);
   DataStore.set(page2);
 
-  const hasPage1 = DataStore.has(page1.getKey());
-  const hasPage2 = DataStore.has(page2.getKey());
-
+  const [p1,p2] = DataStore.getAll();
   debugger;
 }
 
