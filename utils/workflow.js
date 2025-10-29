@@ -15,9 +15,6 @@ const workflow = async () => {
     waitUntil: "domcontentloaded",
   });
 
-  const cookies = await manager.cookieManager.getCookies("main");
-  DataStore.set("cookie", cookies, ContentType.COOKIE);
-
   const result = await manager.evaluator.fetchInsidePage(
     "main",
     DataStore.get("option-chain-contract-info")

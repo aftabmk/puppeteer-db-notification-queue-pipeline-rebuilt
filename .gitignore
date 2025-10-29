@@ -1,5 +1,6 @@
 # modules
 node_modules
+data/*json
 # json
 *lock.json
 # file

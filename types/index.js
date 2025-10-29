@@ -1,3 +1,5 @@
+const { PageType_1, PageType_2 } = require('./page');
+
 const ContentType = Object.freeze({
     HTTP : "http",
     COOKIE : "cookie",
@@ -5,4 +7,11 @@ const ContentType = Object.freeze({
 
 })
 
-module.exports = { ContentType }
+const PageType = Object.freeze({
+    PageType_1 : PageType_1, 
+    PageType_2 : PageType_2, 
+})
+
+
+
+module.exports = { ContentType, PageType }
