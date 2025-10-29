@@ -15,7 +15,7 @@ class ExchangeBuilder {
     }
     // parent builder method used by subclass
     buildUrl(data) {
-        switch (this.meta.EXCHANGE) {
+        switch (this.#meta.EXCHANGE) {
             case EXCHANGE_1:
                 return this.buildExchangeOne(data);
             case EXCHANGE_2:
@@ -27,11 +27,11 @@ class ExchangeBuilder {
 
     // shared implementations for different exchanges
     buildExchangeOne(data) {
-        return data.map(date => this.meta.URL_BUILDER + date);
+        return data.map(date => this.#meta.URL_BUILDER + date);
     }
 
     buildExchangeTwo(data) {
-        return data.map(date => this.meta.URL_BUILDER + date);
+        return data.map(date => this.#meta.URL_BUILDER + date);
     }
 }
 

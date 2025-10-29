@@ -6,6 +6,8 @@ const main = () => {
 
   const [page1,page2] = DataStore.getAllPages();
   
+  const meta = page1.getMeta();
+
   page1.buildUrl(['20-02-2025','10-09-2026']);
   page2.buildUrl(['10-04-2025','10-10-2016']);
 
