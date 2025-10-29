@@ -1,5 +1,4 @@
 const { DataStore } = require("../store");
-const { ContentType } = require("../types");
 const { BrowserFactory } = require("../browser");
 
 const workflow = async () => {
@@ -9,7 +8,7 @@ const workflow = async () => {
     devtools: true,
   });
 
-  const [page1, ...rest] = DataStore.getAllPages();
+  const [ page1 ] = DataStore.getAllPages();
 
   const { EXCHANGE ,PAGE_URL , API_URL } = page1.getParams();
 

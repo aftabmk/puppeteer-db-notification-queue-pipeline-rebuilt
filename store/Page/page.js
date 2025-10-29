@@ -1,13 +1,13 @@
 const { ExchangeBuilder } = require('./utils/ExchangeBuilder');
 
 class Page extends ExchangeBuilder {
-    #expiry_data;
     #expiry_url;
+    #expiry_data;
 
     constructor(pageMeta) {
         super(pageMeta); // Pass meta to parent
-        this.#expiry_data = [];
         this.#expiry_url = [];
+        this.#expiry_data = [];
     }
 
     getKey() {
