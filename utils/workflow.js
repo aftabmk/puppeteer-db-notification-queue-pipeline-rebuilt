@@ -35,11 +35,11 @@ const workflow = async () => {
   
   const jsonArray = [];
 
-  const { value : { status : status_1, data : option_1 }} = data_1;
+  const { value : { status : status_1, data : { records: option_1 } }} = data_1;
   if(status_1 == 200)
     jsonArray.push(option_1);
   
-  const { value : {status : status_2, data : option_2} } = data_2;
+  const { value : {status : status_2, data : { records : option_2 }}} = data_2;
   if(status_2 == 200)
     jsonArray.push(option_2);
 

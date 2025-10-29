@@ -1,60 +1,36 @@
-const { EXCHANGE_1, EXCHANGE_2 } = require('../../constant');
+const { ExchangeBuilder } = require('./utils/ExchangeBuilder');
 
-class Page {
-    #meta; #expiry_data; #expiry_url;    
+class Page extends ExchangeBuilder {
+    #expiry_data;
+    #expiry_url;
 
-    constructor(page) {
-        this.#meta = page;
+    constructor(pageMeta) {
+        super(pageMeta); // Pass meta to parent
         this.#expiry_data = [];
         this.#expiry_url = [];
     }
 
     getKey() {
-        return this.#meta.EXCHANGE;
+        return this.meta.EXCHANGE;
     }
 
     getParams() {
-        const { EXCHANGE , PAGE_URL , API_URL } = this.#meta;
-        return { EXCHANGE, PAGE_URL , API_URL };
+        const { EXCHANGE, PAGE_URL, API_URL } = this.meta;
+        return { EXCHANGE, PAGE_URL, API_URL };
     }
 
-    // insert expiry dates
+    // just delegate build to parent
     buildUrl(data) {
-        switch (this.#meta.EXCHANGE) {
-            case EXCHANGE_1:
-                this.#buildUrlExchangeOne(data);
-                break;
-            case EXCHANGE_2:
-                this.#buildUrlExchangeTwo(data);
-                break;
-            default:
-                throw new Error(`Unknown exchange: ${this.#meta.EXCHANGE}`);
-        }
-    }
-
-    #buildUrlExchangeOne(data) {
-        for (let date of data) {
-            const expiry_url = this.#meta.URL_BUILDER + date;
-            this.#expiry_url.push(expiry_url);
-        }
-    }
-
-    #buildUrlExchangeTwo(data) {
-        for (let date of data) {
-            const expiry_url = this.#meta.URL_BUILDER + date;
-            this.#expiry_url.push(expiry_url);
-        }
+        const urls = super.buildUrl(data);
+        this.#expiry_url.push(...urls);
     }
 
     getExpiryUrl() {
-        return [...this.#expiry_url]; 
+        return [...this.#expiry_url];
     }
 
-    // insert json data of expiry
     insertArray(data) {
-        for (let val of data) {
-            this.#expiry_data.push(val);
-        }
+        this.#expiry_data.push(...data);
     }
 
     getJsonData() {
