@@ -9,6 +9,10 @@ class Page {
         this.#expiry_url = [];
     }
 
+    getKey() {
+        return this.#meta.EXCHANGE;
+    }
+
     buildUrl(data) {
         switch (this.#meta.EXCHANGE) {
             case EXCHANGE_1:

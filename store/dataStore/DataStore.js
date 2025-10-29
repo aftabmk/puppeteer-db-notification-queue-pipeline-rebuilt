@@ -1,21 +1,35 @@
+// datastore.js
 
 class DataStore {
-  static cache = new Map();
+  // singleton cache
+  static #pageCache = new Map();
+
+  static set(page) {
+    if (!page || typeof page.getKey !== 'function') {
+      throw new Error('Invalid Page object: must have getKey() method.');
+    }
+    const key = page.getKey();
+    this.#pageCache.set(key, page);
+  }
 
   static get(key) {
-    const { data } = this.cache.get(key);
-    // debugger;
-    return data;
+    return this.#pageCache.get(key) || null;
   }
 
-  static set(key,value,type = null) {
-    this.cache.set(key, {  data : value, ts: Date.now(), type : type });
+  static has(key) {
+    return this.#pageCache.has(key);
   }
 
-  static clearExpired(ttl = 1000 * 60 * 5) {
-    for (const [key, { ts }] of this.cache.entries()) {
-      if (Date.now() - ts > ttl) this.cache.delete(key);
-    }
+  static getAll() {
+    return Array.from(this.#pageCache.values());
+  }
+
+  static remove(key) {
+    this.#pageCache.delete(key);
+  }
+
+  static clear() {
+    this.#pageCache.clear();
   }
 }
 

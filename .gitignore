@@ -3,7 +3,5 @@ node_modules
 data/*json
 # json
 *lock.json
-# file
-test.js
 # env
 .env
