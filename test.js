@@ -12,6 +12,7 @@ const main = () => {
 
   const hasPage1 = DataStore.has(page1.getKey());
   const hasPage2 = DataStore.has(page2.getKey());
+
   debugger;
 }
 
