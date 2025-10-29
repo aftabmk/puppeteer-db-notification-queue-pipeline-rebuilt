@@ -1,4 +1,4 @@
-const { Page } = require('./Page/page');
+const { Page } = require('./page/Page');
 const { DataStore } = require('./dataStore/DataStore');
 
 module.exports = { DataStore, Page };
