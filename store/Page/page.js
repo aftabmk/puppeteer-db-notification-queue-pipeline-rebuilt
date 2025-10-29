@@ -28,14 +28,14 @@ class Page {
 
     #buildUrlExchangeOne(data) {
         for (let date of data) {
-            const expiry_url = this.#meta.API_URL_BUILDER + date;
+            const expiry_url = this.#meta.URL_BUILDER + date;
             this.#expiry_url.push(expiry_url);
         }
     }
 
     #buildUrlExchangeTwo(data) {
         for (let date of data) {
-            const expiry_url = this.#meta.API_URL_BUILDER + date;
+            const expiry_url = this.#meta.URL_BUILDER + date;
             this.#expiry_url.push(expiry_url);
         }
     }

@@ -6,8 +6,8 @@ const pageBuilder = () => {
   const page1 = new Page(PageType.PageType_1);
   const page2 = new Page(PageType.PageType_2);
 
-  DataStore.set(page1);
-  DataStore.set(page2);
+  DataStore.setPage(page1);
+  DataStore.setPage(page2);
 }
 
 module.exports = { pageBuilder }

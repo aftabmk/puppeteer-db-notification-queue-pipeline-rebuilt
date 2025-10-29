@@ -4,7 +4,7 @@ class DataStore {
   // singleton cache
   static #pageCache = new Map();
 
-  static set(page) {
+  static setPage(page) {
     if (!page || typeof page.getKey !== 'function') {
       throw new Error('Invalid Page object: must have getKey() method.');
     }
@@ -12,23 +12,23 @@ class DataStore {
     this.#pageCache.set(key, page);
   }
 
-  static get(key) {
+  static getPage(key) {
     return this.#pageCache.get(key) || null;
   }
 
-  static has(key) {
+  static hasPage(key) {
     return this.#pageCache.has(key);
   }
 
-  static getAll() {
+  static getAllPages() {
     return Array.from(this.#pageCache.values());
   }
 
-  static remove(key) {
+  static removePage(key) {
     this.#pageCache.delete(key);
   }
 
-  static clear() {
+  static clearAllPages() {
     this.#pageCache.clear();
   }
 }
