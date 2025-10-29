@@ -13,6 +13,12 @@ class Page {
         return this.#meta.EXCHANGE;
     }
 
+    getParams() {
+        const { EXCHANGE , PAGE_URL , API_URL } = this.#meta;
+        return { EXCHANGE, PAGE_URL , API_URL };
+    }
+
+    // insert expiry dates
     buildUrl(data) {
         switch (this.#meta.EXCHANGE) {
             case EXCHANGE_1:
@@ -44,9 +50,11 @@ class Page {
         return [...this.#expiry_url]; 
     }
 
+    // insert json data of expiry
     insertArray(data) {
-        for (let val of data)
+        for (let val of data) {
             this.#expiry_data.push(val);
+        }
     }
 
     getJsonData() {

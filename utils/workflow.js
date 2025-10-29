@@ -2,7 +2,6 @@ const { DataStore } = require("../store");
 const { ContentType } = require("../types");
 const { BrowserFactory } = require("../browser");
 
-
 const workflow = async () => {
   const manager = await BrowserFactory.createManager({
     incognito: true,
@@ -10,24 +9,43 @@ const workflow = async () => {
     devtools: true,
   });
 
-  const page = await manager.pageManager.newPage("main");
-  await page.goto(DataStore.get("option-chain"), {
-    waitUntil: "domcontentloaded",
-  });
+  const [page1, ...rest] = DataStore.getAllPages();
 
-  const result = await manager.evaluator.fetchInsidePage(
-    "main",
-    DataStore.get("option-chain-contract-info")
-  );
-  DataStore.set("result", result, ContentType.APPLICATION_JSON);
+  const { EXCHANGE ,PAGE_URL , API_URL } = page1.getParams();
 
-  const option = await manager.evaluator.fetchInsidePage(
-    "main",
-    DataStore.get("option-chain-expiry")
-  );
-  DataStore.set("option", option, ContentType.APPLICATION_JSON);
+  const page = await manager.pageManager.newPage(EXCHANGE);
+  await page.goto(PAGE_URL,{waitUntil: "domcontentloaded"});
 
-  debugger;
+  const result  = await manager.evaluator.fetchInsidePage(EXCHANGE,API_URL);
+  const { status, data } = result;
+  if(status != 200)
+    return;
+
+  const { expiryDates } = data;
+  const formattedData = expiryDates.slice(0,2);  
+
+  page1.buildUrl(formattedData);
+  // DataStore.set("result", result, ContentType.APPLICATION_JSON);
+  const [EXPIRY_URL_1,EXPIRY_URL_2] = page1.getExpiryUrl();
+
+  const [ data_1, data_2 ] = await Promise.allSettled([
+    await manager.evaluator.fetchInsidePage(EXCHANGE,EXPIRY_URL_1),
+    await manager.evaluator.fetchInsidePage(EXCHANGE,EXPIRY_URL_2)
+  ]); 
+  
+  const jsonArray = [];
+
+  const { value : { status : status_1, data : option_1 }} = data_1;
+  if(status_1 == 200)
+    jsonArray.push(option_1);
+  
+  const { value : {status : status_2, data : option_2} } = data_2;
+  if(status_2 == 200)
+    jsonArray.push(option_2);
+
+  page1.insertArray(jsonArray);
+
+  // debugger;
   await manager.close();
 };
 
