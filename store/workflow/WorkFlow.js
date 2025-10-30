@@ -1,4 +1,3 @@
-const { workflow } = require("../../utils");
 const { WorkFlowBuilder } = require("./utils/WorkFlowBuilder");
 
 class WorkFlow extends WorkFlowBuilder {
