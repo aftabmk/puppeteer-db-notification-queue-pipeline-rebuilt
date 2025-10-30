@@ -1,21 +1,23 @@
-const { DataStore } = require('./store')
-const { pageBuilder } = require('./utils');
+const { DataStore, WorkFlow } = require('./store')
+const { pageBuilder , buildBrowser} = require('./utils');
 
-const main = () => {
+const main = async () => {
+  const manager = await buildBrowser();
+  
   pageBuilder()
+  const [page_1,page_2] = DataStore.getAllPages();
 
-  const [page1,page2] = DataStore.getAllPages();
+  let workflow_1 = new WorkFlow(manager,page_1);
+  let workflow_2 = new WorkFlow(manager,page_2);
 
-  page1.buildUrl(['20-02-2025','10-09-2026']);
-  page2.buildUrl(['10-04-2025','10-10-2016']);
+  workflow_1.sayhello();
+  workflow_2.sayhello();
+  // page1.buildUrl(['20-02-2025','10-09-2026']);
+  // page2.buildUrl(['10-04-2025','10-10-2016']);
 
-  page1.insertArray([{"name" : "aftab"}])
-  page2.insertArray([{"name" : "mohammed"}])
-
-  const sns1 = {exchange : page1.getKey(), data : page1.getJsonData()}
-  const sns2 = {exchange : page2.getKey(), data : page2.getJsonData()}
-
-  debugger;
+  // page1.insertArray([{"name" : "aftab"}])
+  // page2.insertArray([{"name" : "mohammed"}])
+  debugger
 }
 
 main()

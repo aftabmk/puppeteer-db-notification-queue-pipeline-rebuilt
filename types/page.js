@@ -18,4 +18,5 @@ const PageType_2 = Object.freeze({
     URL_BUILDER : API_URL_BUILDER_2 
 })
 
+
 module.exports = { PageType_1, PageType_2 }
