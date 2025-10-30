@@ -13,9 +13,9 @@ class WorkFlow extends WorkFlowBuilder {
   }
 
   async workflowCache() {
-    await super.navigate();
-    await super.fetch();
-    super.processData();
+    debugger
+    super.clearPrevExpiryData();
+    debugger
     await super.fetchExpiry()
   }
 }

@@ -53,10 +53,14 @@ class WorkFlowBuilder extends Builder {
     if(this.filterDataArray.length)
       this.page.insertArray(this.filterDataArray);
     
+    this.filterDataArray = [];
     // debugger
   }
   
-
+  // if cache found delete prev expiry Data
+  clearPrevExpiryData() {
+    this.page.clearExpiry();
+  }
 }
 
 module.exports = { WorkFlowBuilder };

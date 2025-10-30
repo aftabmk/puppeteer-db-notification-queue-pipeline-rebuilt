@@ -5,7 +5,7 @@ class Page extends ExchangeBuilder {
     #expiry_data;
 
     constructor(pageMeta) {
-        super(pageMeta); // Pass meta to parent
+        super(pageMeta); 
         this.#expiry_url = [];
         this.#expiry_data = [];
     }
@@ -29,13 +29,21 @@ class Page extends ExchangeBuilder {
         return [...this.#expiry_url];
     }
 
-    insertArray(data) {
-        this.#expiry_data.push(...data);
+    toggleCompleted() {
+        this.completed = ! this.completed;
     }
-
+    insertArray(data) {
+        this.#expiry_data = data;
+    }
+    
     getJsonData() {
         return JSON.stringify(this.#expiry_data);
     }
+
+    clearExpiry() {
+        this.#expiry_data = [];
+    }
+
 }
 
 module.exports = { Page };
