@@ -13,7 +13,7 @@ const main = async () => {
   await Promise.allSettled([
     workflow_1.workflow(),
     workflow_2.workflow(),
-  ])
+  ]);
 
   const arr = [page_1.getJsonData(),page_2.getJsonData()];
   debugger

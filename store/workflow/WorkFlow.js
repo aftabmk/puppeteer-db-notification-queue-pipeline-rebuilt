@@ -1,3 +1,4 @@
+const { workflow } = require("../../utils");
 const { WorkFlowBuilder } = require("./utils/WorkFlowBuilder");
 
 class WorkFlow extends WorkFlowBuilder {
@@ -6,6 +7,13 @@ class WorkFlow extends WorkFlowBuilder {
   }
 
   async workflow() {
+    await super.navigate();
+    await super.fetch();
+    super.processData();
+    await super.fetchExpiry()
+  }
+
+  async workflowCache() {
     await super.navigate();
     await super.fetch();
     super.processData();
