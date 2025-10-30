@@ -10,10 +10,12 @@ const main = async () => {
   let workflow_1 = new WorkFlow(manager,page_1);
   let workflow_2 = new WorkFlow(manager,page_2);
 
-  await Promise.all([
+  await Promise.allSettled([
     workflow_1.workflow(),
     workflow_2.workflow(),
   ])
+
+  const arr = [page_1.getJsonData(),page_2.getJsonData()];
   debugger
 }
 
