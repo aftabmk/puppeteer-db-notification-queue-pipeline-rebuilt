@@ -1,56 +1,56 @@
 const { BrowserManager } = require("../browserManager/BrowserManager");
 
 class BrowserFactory {
-  static isLambda = false;
-  static puppeteer = null;
-  static chromium = null;
-  static manager = null;
+  // 🛡️ Private fields
+  static #isLambda = false;
+  static #puppeteer = null;
+  static #chromium = null;
+  static #manager = null;
 
-  static async init() {
-    if (this.puppeteer) return;
+  // 🛠️ Protected (internal-use) initializer
+  static async #init() {
+    if (this.#puppeteer) return;
 
-    this.isLambda = !!(
+    this.#isLambda = !!(
       process.env.AWS_EXECUTION_ENV || process.env.LAMBDA_TASK_ROOT
     );
 
-    if (this.isLambda) {
+    if (this.#isLambda) {
       console.log("🚀 Lambda environment detected");
-      
       const puppeteer = await import("puppeteer-core");
       const chromium = await import("@sparticuz/chromium");
-      
-      this.puppeteer = puppeteer.default;
-      this.chromium = chromium.default;
-    } 
-    else {
+      this.#puppeteer = puppeteer.default;
+      this.#chromium = chromium.default;
+    } else {
       console.log("💻 Local environment detected");
-      
       const puppeteer = require("puppeteer-extra");
       const StealthPlugin = require("puppeteer-extra-plugin-stealth");
-      
       puppeteer.use(StealthPlugin());
-      this.puppeteer = puppeteer;
+      this.#puppeteer = puppeteer;
     }
   }
 
-  static async createManager(options = {}) {
-    
-    // If an existing manager is cached and browser still connected → reuse
-    if (this.manager && this.manager.browser && this.manager.browser.isConnected()) 
-      console.log("♻️ Reusing existing BrowserManager");
-    else {
-      // Ensure dependencies initialized
-      await this.init();
+  // ⚙️ Protected (internal) manager creator
+  static async #createManager(options = {}) {
+    await this.#init();
+    console.log("🚀 Creating new BrowserManager");
 
-      console.log("🚀 Creating new BrowserManager");   
-      const manager = new BrowserManager(this.puppeteer,this.chromium,this.isLambda);
-      
-      await manager.launch(options);
-      this.manager = manager;
+    const manager = new BrowserManager(this.#puppeteer, this.#chromium, this.#isLambda);
+    await manager.launch(options);
+
+    this.#manager = manager;
+  }
+
+  // ✅ Public accessor: safely returns (or creates) BrowserManager
+  static async getManager(options = {}) {
+    if (this.#manager && this.#manager.browser && this.#manager.browser.isConnected()) {
+      console.log("♻️ Reusing existing BrowserManager");
+      return this.#manager;
     }
 
-    // ✅ Always return the cached manager instance
-    return this.manager;
+    console.log("⚙️ No active manager found — creating new one");
+    await this.#createManager(options);
+    return this.#manager;
   }
 }
 

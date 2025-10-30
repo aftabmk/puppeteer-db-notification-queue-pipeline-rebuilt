@@ -2,13 +2,13 @@ const { DataStore } = require("../store");
 const { BrowserFactory } = require("../browser");
 
 const workflow = async () => {
-  const manager = await BrowserFactory.createManager({
+  const [ page1 ] = DataStore.getAllPages();
+
+  const manager = await BrowserFactory.getManager({
     incognito: true,
     headless: false,
     devtools: true,
   });
-
-  const [ page1 ] = DataStore.getAllPages();
 
   const { EXCHANGE ,PAGE_URL , API_URL } = page1.getParams();
 
