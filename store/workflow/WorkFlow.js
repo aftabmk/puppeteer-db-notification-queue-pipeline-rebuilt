@@ -1,27 +1,13 @@
-const { Manager } = require('./utils/Manager');
-const { PageParams, WaitUntil } = require('../../types');
+const { WorkFlowBuilder } = require("./utils/WorkFlowBuilder");
 
-class WorkFlow extends Manager {
-  constructor(manager,page) {
-    super();
-    this.page = page;
-    this.manager = manager
+class WorkFlow extends WorkFlowBuilder {
+  constructor(manager, page) {
+    super(manager, page);
   }
 
-  getPageParams(param) {
-    return this.page[param];
+  async workflow() {
+    await super.navigate();
   }
-
-  async navigate() {
-    const waitUntil = WaitUntil.DOM_CONTENT_LOADED;
-    const exchange = this.getPageParams(PageParams.EXCHANGE);
-    const page_url = this.getPageParams(PageParams.PAGE_URL);
-
-    const page = await this.manager.pageManager.newPage(exchange)
-    await page.goto(page_url,{waitUntil});
-  }
-
-
 }
 
 module.exports = { WorkFlow };
