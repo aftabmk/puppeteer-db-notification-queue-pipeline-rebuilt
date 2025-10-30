@@ -7,6 +7,9 @@ class WorkFlow extends WorkFlowBuilder {
 
   async workflow() {
     await super.navigate();
+    await super.fetch();
+    super.processData();
+    await super.fetchExpiry()
   }
 }
 
