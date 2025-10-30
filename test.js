@@ -6,14 +6,18 @@ const main = async () => {
   
   pageBuilder()
   const [page_1,page_2] = DataStore.getAllPages();
+  const pages = [page_1];
 
   let workflow_1 = new WorkFlow(manager,page_1);
   // let workflow_2 = new WorkFlow(manager,page_2);
 
-  await Promise.allSettled([
-    workflow_1.workflow(),
-    // workflow_2.workflow(),
-  ]);
+  const workflows = [workflow_1];
+
+  await Promise.allSettled(workflows.map(work => work.workflow()));
+  // await Promise.allSettled([
+  //   workflow_1.workflow(),
+  //   // workflow_2.workflow(),
+  // ]);
 
 
   const arr = [

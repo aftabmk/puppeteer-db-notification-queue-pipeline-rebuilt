@@ -40,14 +40,13 @@ class WorkFlowBuilder extends Builder {
 
   async fetchExpiry() {
     const { exchange: EXCHANGE } = this.params;
-    const [EXPIRY_URL_1, EXPIRY_URL_2] = this.page.getExpiryUrl();
+    const expiryUrls = this.page.getExpiryUrl();
 
-    const [data_1, data_2] = await Promise.allSettled([
-      await this.manager.evaluator.fetchInsidePage(EXCHANGE, EXPIRY_URL_1),
-      await this.manager.evaluator.fetchInsidePage(EXCHANGE, EXPIRY_URL_2),
-    ]);
+    const results = await Promise.allSettled(
+      expiryUrls.map(expiryUrl => this.manager.evaluator.fetchInsidePage(EXCHANGE, expiryUrl))
+    );
 
-    this.filterData([data_1,data_2]);    
+    this.filterData(results);    
     
     
     if(this.filterDataArray.length)

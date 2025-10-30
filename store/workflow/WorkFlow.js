@@ -13,9 +13,7 @@ class WorkFlow extends WorkFlowBuilder {
   }
 
   async workflowCache() {
-    debugger
     super.clearPrevExpiryData();
-    debugger
     await super.fetchExpiry()
   }
 }
