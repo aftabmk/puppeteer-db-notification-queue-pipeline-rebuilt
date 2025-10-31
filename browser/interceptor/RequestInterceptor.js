@@ -39,10 +39,6 @@ class RequestInterceptor {
     else req.continue();
   }
 
-  #filterLength(length) {
-    return length === 3;
-  }
-
   updateFilter({ allowed, disallowed } = {}) {
     if (allowed) this.allowed = allowed;
     if (disallowed) this.disallowed = disallowed;

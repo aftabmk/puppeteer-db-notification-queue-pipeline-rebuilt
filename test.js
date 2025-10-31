@@ -14,10 +14,6 @@ const main = async () => {
   const workflows = [workflow_1];
 
   await Promise.allSettled(workflows.map(work => work.workflow()));
-  // await Promise.allSettled([
-  //   workflow_1.workflow(),
-  //   // workflow_2.workflow(),
-  // ]);
 
 
   const arr = [
@@ -26,10 +22,7 @@ const main = async () => {
   ];
 
 
-  await Promise.allSettled([
-    workflow_1.workflowCache(),
-    // workflow_2.workflowCache(),
-  ]);
+  await Promise.allSettled(workflows.map(work => work.workflowCache()));
 
   debugger;
 
