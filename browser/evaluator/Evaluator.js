@@ -20,7 +20,7 @@ class Evaluator {
     const headers = {
       Accept: "application/json, text/plain, */*",
       "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
-      Referer: "https://www.nseindia.com/",
+      Referer: process.env.REFERER_1,
       "Accept-Encoding": "gzip, deflate, br",
       Connection: "keep-alive",
       ...(cookieHeader ? { Cookie: cookieHeader } : {}),

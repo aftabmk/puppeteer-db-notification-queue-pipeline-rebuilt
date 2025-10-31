@@ -18,7 +18,7 @@ const main = async () => {
   await Promise.allSettled(workflows.map(work => work.workflowCache()));
 
   debugger;
-
+  manager.close();
 }
 
 const timer = async() => {
