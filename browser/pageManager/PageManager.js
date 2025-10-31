@@ -11,7 +11,7 @@ class PageManager {
    */
   async newPage(name) {
     const page = await this.context.newPage();
-
+    
     if (this.interceptor) await this.interceptor.attach(page);
     this.pages.set(name, page);
 

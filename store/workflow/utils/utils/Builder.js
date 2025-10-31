@@ -40,11 +40,14 @@ class Builder {
   }
   
   processDataExchangeTwo() {
-    const { data : { expiryDates }, status , message } = this.result;
+    const { data : { Table1 }, status , message } = this.result;
     if(status !== 200)
       throw new Error(`status : ${status} , message : ${message}`);
-    else
-      this.format = expiryDates.slice(0, 2);
+    else {
+      const expiryDates = Table1.map(obj => obj.ExpiryDate);
+      
+      this.format = expiryDates.slice(0,2);
+    }
   }
 
   filterData(payloadArr) {
@@ -53,7 +56,8 @@ class Builder {
       if(status === 200)
         this.filterDataArray.push(data);
 
-      this.log.push(status);
+      const now = Date.now();
+      this.log.push({date : now, status : status});
     }
   }
 }

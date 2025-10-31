@@ -1,3 +1,4 @@
+const { EXCHANGE_2 } = require('../../constant');
 class Evaluator {
   constructor(pageManager) {
     this.pageManager = pageManager;
@@ -29,10 +30,16 @@ class Evaluator {
     return headers;
   }
 
-  async evaluateFetch(page, url, headers) {
-    return await page.evaluate(async ({ url, headers }) => {
+  async evaluateFetch(page, url, pagename, headers) {
+    // debugger
+    return await page.evaluate(async ({ url, headers, pagename, EXCHANGE_2}) => {
       try {
-        const res = await fetch(url, { headers, credentials: "include" });
+        let res;
+        if(pagename == EXCHANGE_2)
+          res = await fetch(url);
+        else
+          res = await fetch(url, { headers, credentials: "include" });
+  
         const contentType = res.headers.get("content-type") || "";
 
         if (!contentType.includes("application/json")) {
@@ -54,7 +61,7 @@ class Evaluator {
           message: err.message || "Unexpected error",
         };
       }
-    }, { url, headers });
+    }, { url, headers, pagename, EXCHANGE_2 });
   }
 
   async attemptFetchWithRetry(pageName, url, maxAttempts = 3) {
@@ -65,7 +72,7 @@ class Evaluator {
       console.log(`🧪 Attempt ${attempt} for ${url}`);
 
       const headers = await this.buildHeaders(pageName);
-      const result = await this.evaluateFetch(page, url, headers);
+      const result = await this.evaluateFetch(page, url, pageName,headers);
 
       if (result.status === 200) {
         console.log(`✅ Fetch succeeded on attempt ${attempt}`);

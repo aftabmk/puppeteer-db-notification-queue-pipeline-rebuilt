@@ -31,7 +31,8 @@ class ExchangeBuilder {
     }
 
     buildExchangeTwo(data) {
-        return data.map(date => this.#meta.URL_BUILDER + date);
+        // debugger
+        return data.map(date => this.#meta.URL_BUILDER.replace('X',date));
     }
 }
 
