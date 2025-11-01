@@ -5,3 +5,5 @@ data/*json
 *lock.json
 # env
 .env
+
+test.js

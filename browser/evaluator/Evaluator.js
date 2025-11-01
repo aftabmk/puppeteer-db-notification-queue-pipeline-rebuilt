@@ -11,7 +11,7 @@ class Evaluator {
 
     let cookies = this.cookieManager.cookieStore.get(pageName);
     if (!cookies || cookies.length === 0) {
-      console.log(`⚙️ No cookies cached for "${pageName}". Fetching from browser...`);
+      // console.log(`⚙️ No cookies cached for "${pageName}". Fetching from browser...`);
       cookies = await this.cookieManager.getCookies(pageName);
     }
 
@@ -26,7 +26,7 @@ class Evaluator {
       ...(cookieHeader ? { Cookie: cookieHeader } : {}),
     };
 
-    console.log(`🔖 Built headers for "${pageName}" (cookies: ${cookies.length})`);
+    // console.log(`🔖 Built headers for "${pageName}" (cookies: ${cookies.length})`);
     return headers;
   }
 
@@ -54,7 +54,8 @@ class Evaluator {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
         return { status: 200, data, message: "Success" };
-      } catch (err) {
+      } 
+      catch (err) {
         return {
           status: 400,
           data: [],
@@ -69,17 +70,17 @@ class Evaluator {
     if (!page) throw new Error(`Page "${pageName}" not found`);
 
     for (let attempt = 1; attempt <= maxAttempts; attempt++) {
-      console.log(`🧪 Attempt ${attempt} for ${url}`);
+      // console.log(`🧪 Attempt ${attempt} for ${url}`);
 
       const headers = await this.buildHeaders(pageName);
       const result = await this.evaluateFetch(page, url, pageName,headers);
 
       if (result.status === 200) {
-        console.log(`✅ Fetch succeeded on attempt ${attempt}`);
+        // console.log(`✅ Fetch succeeded on attempt ${attempt}`);
         return result;
       }
 
-      console.warn(`⚠️ Attempt ${attempt} failed: ${result.message}`);
+      // console.warn(`⚠️ Attempt ${attempt} failed: ${result.message}`);
 
       // ✅ Use PageManager’s built-in reload function
       await this.pageManager.reloadPage(pageName);
@@ -93,13 +94,13 @@ class Evaluator {
     const page = this.pageManager.getPage(pageName);
     if (!page) throw new Error(`Page "${pageName}" not found`);
 
-    console.log(`🌐 Fetching URL inside page "${pageName}": ${url}`);
+    // console.log(`🌐 Fetching URL inside page "${pageName}": ${url}`);
     const result = await this.attemptFetchWithRetry(pageName, url, 3);
 
-    if (result.status === 200)
-      console.log(`✅ Fetch successful: ${url}`);
-    else
-      console.error(`❌ Fetch failed: ${url} - ${result.message}`);
+    // if (result.status === 200)
+    //   console.log(`✅ Fetch successful: ${url}`);
+    // else
+    //   console.error(`❌ Fetch failed: ${url} - ${result.message}`);
 
     return result;
   }

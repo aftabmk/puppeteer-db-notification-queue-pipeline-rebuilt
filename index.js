@@ -1,23 +1,15 @@
-const { DataStore, WorkFlow } = require('./store')
-const { pageBuilder , buildBrowser} = require('./utils');
+const { pageBuilder , buildBrowser, workflow } = require('./utils');
 
 const main = async () => {
+  // create singleton browser instance
   const manager = await buildBrowser();
-  
+  // create required pages
   pageBuilder()
-  // const [pages1,pages2] = DataStore.getAllPages();
-  const pages = DataStore.getAllPages();
-  
-  const workflows = pages.map(page => new WorkFlow(manager,page));
-
-  await Promise.allSettled(workflows.map(work => work.workflow()));
-
-  const arr = pages.map(page => page.getJsonData());
-
-
-  // await Promise.allSettled(workflows.map(work => work.workflowCache()));
-
-  // debugger;
+  // fetch json data after workflow complition
+  const data = await workflow(manager)
+  // const data1 = await workflow(manager)
+  // close browser instance
+  debugger
   manager.close();
 }
 

@@ -6,13 +6,15 @@ class WorkFlow extends WorkFlowBuilder {
   }
 
   async workflow() {
+    console.log("ran complete workflow")
     await super.navigate();
     await super.fetch();
     super.processData();
     await super.fetchExpiry()
   }
-
+  
   async workflowCache() {
+    console.log("ran cached workflow")
     super.clearPrevExpiryData();
     await super.fetchExpiry()
   }
