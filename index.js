@@ -1,4 +1,4 @@
-const { pageBuilder, buildBrowser, workflow } = require("./utils");
+const { pageBuilder, buildBrowser, workflow, sendSNS } = require("./utils");
 
 const main = async () => {
   // create singleton browser instance
@@ -13,12 +13,7 @@ const main = async () => {
   const message = data.join(SEPARATOR);
 
   // now you can send this via SNS
-  // await sns
-  //   .publish({
-  //     TopicArn: process.env.TOPIC_ARN,
-  //     Message: message,
-  //   })
-  //   .promise();
+  // await sendSNS(message);
   // close browser instance
   debugger;
   manager.close();
