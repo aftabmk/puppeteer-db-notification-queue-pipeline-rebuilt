@@ -1,3 +1,4 @@
+test.js
 # modules
 node_modules
 data/*json
@@ -5,5 +6,3 @@ data/*json
 *lock.json
 # env
 .env
-
-test.js

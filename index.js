@@ -1,22 +1,33 @@
-const { pageBuilder , buildBrowser, workflow } = require('./utils');
+const { pageBuilder, buildBrowser, workflow } = require("./utils");
 
 const main = async () => {
   // create singleton browser instance
   const manager = await buildBrowser();
   // create required pages
-  pageBuilder()
+  pageBuilder();
   // fetch json data after workflow complition
-  const data = await workflow(manager)
-  // const data1 = await workflow(manager)
-  // close browser instance
-  debugger
-  manager.close();
-}
+  const data = await workflow(manager);
+  const SEPARATOR = '<|Split|>';
 
-const timer = async() => {
-  console.time("Browser")
-  await main()
-  console.timeEnd("Browser")
-}
+  // safely join into one string
+  const message = data.join(SEPARATOR);
+
+  // now you can send this via SNS
+  // await sns
+  //   .publish({
+  //     TopicArn: process.env.TOPIC_ARN,
+  //     Message: message,
+  //   })
+  //   .promise();
+  // close browser instance
+  debugger;
+  manager.close();
+};
+
+const timer = async () => {
+  console.time("Browser");
+  await main();
+  console.timeEnd("Browser");
+};
 
 timer();
