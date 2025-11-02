@@ -1,3 +1,4 @@
+const { SEPARATOR } = require('./constant');
 const { pageBuilder, buildBrowser, workflow, sendSNS } = require("./utils");
 
 const main = async () => {
@@ -7,7 +8,6 @@ const main = async () => {
   pageBuilder();
   // fetch json data after workflow complition
   const data = await workflow(manager);
-  const SEPARATOR = '<|Split|>';
 
   // safely join into one string
   const message = data.join(SEPARATOR);

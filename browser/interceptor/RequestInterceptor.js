@@ -1,3 +1,5 @@
+const { Request } = require('../../types');
+
 class RequestInterceptor {
   constructor({ allowed = [], disallowed = [] } = {}) {
     this.allowed = allowed;
@@ -21,7 +23,7 @@ class RequestInterceptor {
     if (!page || !page._interceptionSet) return;
 
     try {
-      await page.setJavaScriptEnabled(true);
+      // await page.setJavaScriptEnabled(true);
       page.off("request", page._requestInterceptorHandler);
       page._interceptionSet = false;
       page._requestInterceptorHandler = null;
@@ -33,7 +35,7 @@ class RequestInterceptor {
 
   async #handleRequest(req) {
     const type = req.resourceType();
-    const blockedTypes = ["stylesheet", "image", "font","script"]; 
+    const blockedTypes = [Request.STYLESHEET,Request.IMAGE,Request.FONT,Request.SCRIPT,Request.XHR]; 
     
     if (blockedTypes.includes(type)) 
       await req.abort("blockedbyclient");
