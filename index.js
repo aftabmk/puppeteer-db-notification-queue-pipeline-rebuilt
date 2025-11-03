@@ -18,6 +18,9 @@ const timer = async () => {
     console.time("workFlow");
     await main();
     console.timeEnd("workFlow");
+    
+    console.log("wait 20 sec")
+    new Promise(resolve => setTimeout(resolve,20000));
     index ++;
   }
 };
