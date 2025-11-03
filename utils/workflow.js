@@ -1,24 +1,37 @@
-const { DataStore, WorkFlow } = require('../store')
+const { DataStore, WorkFlow } = require("../store");
 
-const workflow = async (manager) => {
-  const pages = DataStore.getAllPages();
-  const workflows = pages.map(page => new WorkFlow(manager, page));
+class WorkflowInstance {
+  static instance = null;
 
-  // Determine cache state for each page
-  const isCached = pages.map(page => page.isCached());
+  constructor(manager) {
+    this.manager = manager;
+    this.pages = DataStore.getAllPages();
+    this.workflows = this.pages.map((page) => new WorkFlow(manager, page));
+  }
 
-  // Run workflowCache if cached, else run workflow
-  // debugger
-  await Promise.allSettled(
-    workflows.map((work, i) => 
-      isCached[i] ? work.workflowCache() : work.workflow()
-    )
-  );
+  // 🧩 Execute the actual workflow
+  async run() {
+    let isCached = this.pages.map((page) => page.isCached());
+    debugger;
+    await Promise.allSettled(
+      this.workflows.map((workflow, i) =>
+        isCached[i] ? workflow.workflowCache() : workflow.workflow()
+      )
+    );
+  }
 
-  // Collect final data
-  const data = pages.map(page => page.getData());
-  return data;
-};
+  // 🏗️ Singleton instance getter/creator
+  static getInstance(manager) {
+    if (!WorkflowInstance.instance) {
+      WorkflowInstance.instance = new WorkflowInstance(manager);
+    }
+    return WorkflowInstance.instance;
+  }
 
+  // 🧹 Reset (useful for testing or re-init)
+  static reset() {
+    WorkflowInstance.instance = null;
+  }
+}
 
-module.exports = { workflow };
+module.exports = { WorkflowInstance };

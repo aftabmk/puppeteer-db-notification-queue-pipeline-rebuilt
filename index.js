@@ -1,22 +1,24 @@
-const { pageBuilder, buildBrowser, workflow } = require("./utils");
+const { pageBuilder, buildBrowser, WorkflowInstance } = require("./utils");
 
 const main = async () => {
-  // create singleton browser instance
   const manager = await buildBrowser();
-  // create required pages
   pageBuilder();
-  // fetch json data after workflow complition
-  const data = await workflow(manager);
-
-  debugger;
+  // Create or get the workflow instance
+  const workflow = WorkflowInstance.getInstance(manager);
+  // Run the workflow
+  await workflow.run();
+  
   manager.close();
 };
 
 const timer = async () => {
-  console.time("Browser");
-  await main();
-  console.timeEnd("Browser");
-  debugger;
+  let index = 0
+  while(index < 2) {
+    console.time("workFlow");
+    await main();
+    console.timeEnd("workFlow");
+    index ++;
+  }
 };
 
 timer();

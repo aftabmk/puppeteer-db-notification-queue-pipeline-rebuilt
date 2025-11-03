@@ -1,5 +1,5 @@
 const { pageBuilder } = require('./buildPage');
-const { workflow } = require('./workflow');
+const { WorkflowInstance } = require('./workflow');
 const { buildBrowser } = require('./buildBrowser');
 
-module.exports = { pageBuilder, workflow, buildBrowser };
+module.exports = { pageBuilder, WorkflowInstance, buildBrowser };

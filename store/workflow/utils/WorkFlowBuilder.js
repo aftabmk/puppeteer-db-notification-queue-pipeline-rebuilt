@@ -1,6 +1,6 @@
 const { Builder } = require("./utils/Builder");
-const { EXCHANGE_1, EXCHANGE_2, TOPIC_ARN } = require("../../../constant");
 const { SNSClient, PublishCommand } = require ("@aws-sdk/client-sns");
+const { EXCHANGE_1, EXCHANGE_2, TOPIC_ARN } = require("../../../constant");
 class WorkFlowBuilder extends Builder {
   constructor(manager, page) {
     super(manager, page);
@@ -75,11 +75,9 @@ async sendSNS() {
 
       const response = await sns.send(command);
 
-      debugger;
       return response;
     } catch (e) {
       console.error("Error sending SNS:", e);
-      debugger;
       throw e;
     }
   }
