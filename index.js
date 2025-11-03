@@ -1,5 +1,6 @@
 const { pageBuilder, buildBrowser, WorkflowInstance } = require("./utils");
 
+
 const main = async () => {
   const manager = await buildBrowser();
   pageBuilder();
@@ -7,8 +8,8 @@ const main = async () => {
   const workflow = WorkflowInstance.getInstance(manager);
   // Run the workflow
   await workflow.run();
-  
-  manager.close();
+
+  // manager.close();
 };
 
 const timer = async () => {

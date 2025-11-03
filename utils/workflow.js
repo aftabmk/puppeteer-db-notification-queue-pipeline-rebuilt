@@ -12,7 +12,6 @@ class WorkflowInstance {
   // 🧩 Execute the actual workflow
   async run() {
     let isCached = this.pages.map((page) => page.isCached());
-    debugger;
     await Promise.allSettled(
       this.workflows.map((workflow, i) =>
         isCached[i] ? workflow.workflowCache() : workflow.workflow()
