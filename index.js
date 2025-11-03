@@ -18,11 +18,12 @@ const timer = async () => {
     console.time("workFlow");
     await main();
     console.timeEnd("workFlow");
-    
-    console.log("wait 20 sec")
-    new Promise(resolve => setTimeout(resolve,20000));
+
+    console.log("wait 60 sec")
+    await new Promise(resolve => setTimeout(resolve, 30_000));
     index ++;
   }
+  console.log("finished");
 };
 
 timer();
