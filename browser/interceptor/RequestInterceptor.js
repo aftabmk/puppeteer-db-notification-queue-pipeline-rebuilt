@@ -35,6 +35,7 @@ class RequestInterceptor {
 
   async #handleRequest(req) {
     const type = req.resourceType();
+    // const blockedTypes = []; 
     const blockedTypes = [Request.STYLESHEET,Request.IMAGE,Request.FONT,Request.SCRIPT,Request.XHR]; 
     
     if (blockedTypes.includes(type)) 

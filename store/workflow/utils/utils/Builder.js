@@ -60,6 +60,7 @@ class Builder {
       this.log.push({date : now, status : status});
     }
   }
+
 }
 
 module.exports = { Builder };

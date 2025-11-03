@@ -1,5 +1,6 @@
 const { Builder } = require("./utils/Builder");
-const { EXCHANGE_1, EXCHANGE_2 } = require("../../../constant");
+const { EXCHANGE_1, EXCHANGE_2, TOPIC_ARN } = require("../../../constant");
+const { SNSClient, PublishCommand } = require ("@aws-sdk/client-sns");
 class WorkFlowBuilder extends Builder {
   constructor(manager, page) {
     super(manager, page);
@@ -43,22 +44,44 @@ class WorkFlowBuilder extends Builder {
     const expiryUrls = this.page.getExpiryUrl();
 
     const results = await Promise.allSettled(
-      expiryUrls.map(expiryUrl => this.manager.evaluator.fetchInsidePage(EXCHANGE, expiryUrl))
+      expiryUrls.map((expiryUrl) =>
+        this.manager.evaluator.fetchInsidePage(EXCHANGE, expiryUrl)
+      )
     );
 
-    this.filterData(results);    
-    
-    
-    if(this.filterDataArray.length)
+    this.filterData(results);
+
+    if (this.filterDataArray.length)
       this.page.insertArray(this.filterDataArray);
-    
+
     this.filterDataArray = [];
     // debugger
   }
-  
+
   // if cache found delete prev expiry Data
   clearPrevExpiryData() {
     this.page.clearExpiry();
+  }
+
+async sendSNS() {
+  const sns = new SNSClient({ region: "ap-south-1" });  
+  try {
+      const message = this.page.getData();
+
+      const command = new PublishCommand({
+        TopicArn: TOPIC_ARN,
+        Message: message,
+      });
+
+      const response = await sns.send(command);
+
+      debugger;
+      return response;
+    } catch (e) {
+      console.error("Error sending SNS:", e);
+      debugger;
+      throw e;
+    }
   }
 }
 

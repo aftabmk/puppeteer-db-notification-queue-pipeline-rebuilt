@@ -40,7 +40,9 @@ class Page extends ExchangeBuilder {
   }
 
   getData() {
-    const json = JSON.stringify(this.#expiry_data);
+    const exchange = this.getKey();
+    const data = this.#expiry_data;
+    const json = JSON.stringify({exchange,data});
     // Compress with gzip
     const compressed = zlib.gzipSync(json); 
     return compressed.toString("base64");
