@@ -1,7 +1,6 @@
 class Logger {
   static store = new Map();
 
-  // Format time to "hh:mm am/pm"
   static format(ts) {
     return new Date(ts).toLocaleString("en-US", {
       hour: "numeric",
@@ -60,7 +59,7 @@ class Logger {
 
     for (let [id, entries] of Logger.store) {
       console.log(`ID: ${id}`);
-      console.log("=".repeat(40) + "LOGGER END" + "=".repeat(40));
+      console.log("=".repeat(40) + "LOGGER BEGIN" + "=".repeat(40));
 
       entries.forEach((entry, idx) => {
         const { start, end, duration } = entry;
