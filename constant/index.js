@@ -1,7 +1,8 @@
-require('dotenv').config()
+// Load .env only when not running on AWS Lambda
+if (!process.env.AWS_EXECUTION_ENV) {
+    require('dotenv').config();
+}
 
-let { ALLOWED, DISALLOWED } = process.env;
-ALLOWED = JSON.parse(ALLOWED), DISALLOWED = JSON.parse(DISALLOWED);
 
 const { 
     EXCHANGE_1, PAGE_URL_1, API_URL_1, API_URL_BUILDER_1, 
@@ -10,7 +11,7 @@ const {
 } = process.env;
 
 module.exports = { 
-    ALLOWED, DISALLOWED,TOPIC_ARN,
+    TOPIC_ARN,
     EXCHANGE_1, PAGE_URL_1, API_URL_1, API_URL_BUILDER_1, 
     EXCHANGE_2,PAGE_URL_2, API_URL_2, API_URL_BUILDER_2,
 }
