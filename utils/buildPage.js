@@ -8,6 +8,7 @@ const pageBuilder = () => {
 
   DataStore.setPage(page1);
   DataStore.setPage(page2);
+  debugger;
 }
 
 module.exports = { pageBuilder }
