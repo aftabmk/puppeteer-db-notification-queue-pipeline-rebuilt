@@ -9,6 +9,8 @@ const main = async () => {
   // Run the workflow
   await workflow.run();
   const store = Logger.getStore();
+
+  Logger.log();
 };
 
 const close = async() => {

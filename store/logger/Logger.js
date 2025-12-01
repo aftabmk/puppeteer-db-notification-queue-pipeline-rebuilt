@@ -1,6 +1,4 @@
-// logger.js
 class Logger {
-  // store: key = "EXCHANGE-TYPE", value = [ { fn, start, end, duration } ]
   static store = new Map();
 
   // Format time to "hh:mm am/pm"
@@ -49,6 +47,18 @@ class Logger {
 
   static getStore() {
     return Logger.store;
+  }
+
+  static log() {
+    console.log("---Logger-Begin---");
+    for(let [key, values] of Logger.store) {
+        console.log(key);
+        for(let value of values) {
+            const { fn, start, end, duration } = value;
+            console.log({fn,start,end,duration});
+        }
+    }
+    console.log("---Logger-End-----");
   }
 }
 
