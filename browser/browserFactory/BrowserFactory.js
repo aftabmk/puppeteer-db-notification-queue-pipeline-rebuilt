@@ -11,9 +11,7 @@ class BrowserFactory {
   static async #init() {
     if (this.#puppeteer) return;
 
-    this.#isLambda = !!(
-      process.env.AWS_EXECUTION_ENV || process.env.LAMBDA_TASK_ROOT
-    );
+    this.#isLambda = !!(process.env.AWS_EXECUTION_ENV);
 
     if (this.#isLambda) {
       console.log("🚀 Lambda environment detected");

@@ -2,7 +2,6 @@ const { PageManager } = require('../pageManager/PageManager');
 const { CookieManager } = require('../cookieManager/CookieManager');
 const { Evaluator } = require('../evaluator/Evaluator');
 const { RequestInterceptor } = require('../interceptor/RequestInterceptor');
-const { ALLOWED,DISALLOWED  } = require('../../constant');
 class BrowserManager {
   constructor(puppeteer, chromium, isLambda) {
     this.puppeteer = puppeteer;
@@ -18,6 +17,7 @@ class BrowserManager {
   }
 
   async launch({ incognito = true, headless = true, devtools = false, args = ['--no-sandbox', '--disable-setuid-sandbox'] } = {}) {
+    
     let options = {
       headless,
       devtools,
@@ -45,10 +45,7 @@ class BrowserManager {
     }
 
     // ✅ Initialize global interceptor
-    this.interceptor = new RequestInterceptor({
-      allowed: ALLOWED,
-      disallowed: DISALLOWED
-    });
+    this.interceptor = new RequestInterceptor();
 
     // ✅ Initialize managers (order matters)
     this.cookieManager = new CookieManager(this.context);
