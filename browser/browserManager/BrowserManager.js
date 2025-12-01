@@ -16,7 +16,7 @@ class BrowserManager {
     this.interceptor = null; // ✅ Global request interceptor
   }
 
-  async launch({ incognito = true, headless = true, devtools = false, args = ['--no-sandbox', '--disable-setuid-sandbox'] } = {}) {
+  async launch({ headless, devtools, args }) {
     
     let options = {
       headless,
@@ -35,28 +35,15 @@ class BrowserManager {
     }
 
     this.browser = await this.puppeteer.launch(options);
+    this.context = this.browser.defaultBrowserContext();
 
-    if (incognito && this.browser.createIncognitoBrowserContext) {
-      this.context = await this.browser.createIncognitoBrowserContext();
-      console.log('🕶️ Using incognito context');
-    } else {
-      this.context = this.browser.defaultBrowserContext();
-      console.log('⚙️ Using default browser context');
-    }
-
-    // ✅ Initialize global interceptor
     this.interceptor = new RequestInterceptor();
-
-    // ✅ Initialize managers (order matters)
     this.cookieManager = new CookieManager(this.context);
+
     this.pageManager = new PageManager(this.context, this.cookieManager, this.interceptor);
     this.evaluator = new Evaluator(this.pageManager);
 
-    console.log(
-      `✅ Browser launched (${this.isLambda ? 'Lambda' : 'Local'} | ${
-        incognito ? 'incognito' : 'default'
-      } | ${headless ? 'headless' : 'headed'})`
-    );
+    console.log(`✅ Browser launched (${this.isLambda ? 'Lambda' : 'Local'} | ${headless ? 'headless' : 'headed'})`);
   }
 
   async close() {
