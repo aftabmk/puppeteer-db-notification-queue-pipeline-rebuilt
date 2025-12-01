@@ -6,7 +6,7 @@ class Logger {
     return new Date(ts).toLocaleString("en-US", {
       hour: "numeric",
       minute: "numeric",
-      hour12: true
+      hour12: true,
     });
   }
 
@@ -20,7 +20,7 @@ class Logger {
     Logger.store.get(id).push({
       fn: fnName,
       start,
-      _startTs: startTs
+      _startTs: startTs,
     });
 
     return startTs;
@@ -35,7 +35,7 @@ class Logger {
     if (!list) return;
 
     // find the last entry with this fn and no end set yet
-    const entry = [...list].reverse().find(e => e.fn === fnName && !e.end);
+    const entry = [...list].reverse().find((e) => e.fn === fnName && !e.end);
     if (!entry) return;
 
     entry.end = end;
@@ -50,16 +50,39 @@ class Logger {
   }
 
   static log() {
-    console.log("---Logger-Begin---");
-    for(let [key, values] of Logger.store) {
-        console.log(key);
-        for(let value of values) {
-            const { fn, start, end, duration } = value;
-            console.log({fn,start,end,duration});
-        }
+    console.log("=== LOGGER START ===\n");
+
+    if (Logger.store.size === 0) {
+      console.log("No logs available.");
+      console.log("\n=== LOGGER END ===");
+      return;
     }
-    console.log("---Logger-End-----");
+
+    for (let [id, entries] of Logger.store) {
+      console.log(`ID: ${id}`);
+      console.log("=".repeat(40) + "LOGGER END" + "=".repeat(40));
+
+      entries.forEach((entry, idx) => {
+        const { start, end, duration } = entry;
+        
+        const startTime = Logger.getTime(start), endTime = Logger.getTime(end);
+
+        console.log(
+          `${idx + 1}. Function: ${entry.fn.padEnd(20
+          )} | Start: ${startTime} | End: ${endTime} | Duration: ${duration}ms`
+        );
+      });
+
+      console.log("-".repeat(100) + "\n");
+    }
+
+    console.log("=".repeat(40) + "LOGGER END" + "=".repeat(40));
   }
-}
+
+  static getTime(date) {
+    const config = { hour: "2-digit", minute: "2-digit", hour12: true }; 
+    return date.toLocaleString("en-US", config);
+  }
+};
 
 module.exports = { Logger };
