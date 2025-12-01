@@ -17,11 +17,11 @@ class BrowserManager {
     this.interceptor = null; // ✅ Global request interceptor
   }
 
-  async launch({ incognito = true, headless = true, devtools = false } = {}) {
+  async launch({ incognito = true, headless = true, devtools = false, args = ['--no-sandbox', '--disable-setuid-sandbox'] } = {}) {
     let options = {
       headless,
       devtools,
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      args,
       defaultViewport: { width: 1366, height: 768 },
     };
 
