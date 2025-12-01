@@ -7,8 +7,6 @@ class Page extends ExchangeBuilder {
 
   constructor(pageMeta) {
     super(pageMeta);
-    // ~240 KB safe buffer;
-    this.maxBytes = 240 * 1024;
     this.#expiry_url = [];
     this.#expiry_data = [];
   }
@@ -18,8 +16,8 @@ class Page extends ExchangeBuilder {
   }
 
   getParams() {
-    const { EXCHANGE, PAGE_URL, API_URL } = this.getMeta();
-    return { EXCHANGE, PAGE_URL, API_URL };
+    const { EXCHANGE, TYPE ,PAGE_URL, API_URL } = this.getMeta();
+    return { EXCHANGE, TYPE ,PAGE_URL, API_URL };
   }
 
   // just delegate build to parent
@@ -40,9 +38,9 @@ class Page extends ExchangeBuilder {
   }
 
   getData() {
-    const exchange = this.getKey();
+    const { EXCHANGE, TYPE } = this.getParams();
     const data = this.#expiry_data;
-    const json = JSON.stringify({exchange,data});
+    const json = JSON.stringify({EXCHANGE,TYPE,data});
     // Compress with gzip
     const compressed = zlib.gzipSync(json); 
     return compressed.toString("base64");

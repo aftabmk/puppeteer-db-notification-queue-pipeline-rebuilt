@@ -2,9 +2,9 @@ const { Request } = require('./request');
 const { PageType_1, PageType_2 } = require('./page');
 
 const ContentType = Object.freeze({
-    HTTP : "http",
-    COOKIE : "cookie",
-    APPLICATION_JSON : "application/json",
+    HTTP                : "http",
+    COOKIE              : "cookie",
+    APPLICATION_JSON    : "application/json",
 })
 
 const PageType = Object.freeze({
@@ -13,15 +13,15 @@ const PageType = Object.freeze({
 })
 
 const PageParams = Object.freeze({
-    EXCHANGE : "EXCHANGE",
-    PAGE_URL : "PAGE_URL",
-    API_URL : "API_URL",
+    EXCHANGE    : "EXCHANGE",
+    PAGE_URL    : "PAGE_URL",
+    API_URL     : "API_URL",
 })
 
 const WaitUntil = Object.freeze({
-  LOAD: "load",                    
-  NETWORK_IDLE_0: "networkidle0",  
-  NETWORK_IDLE_2: "networkidle2",
+  LOAD              : "load",                    
+  NETWORK_IDLE_0    : "networkidle0",  
+  NETWORK_IDLE_2    : "networkidle2",
   DOM_CONTENT_LOADED: "domcontentloaded",
 });
 
