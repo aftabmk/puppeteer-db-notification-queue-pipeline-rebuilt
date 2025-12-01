@@ -1,9 +1,12 @@
 const { Builder } = require("./utils/Builder");
-const { SNSClient, PublishCommand } = require ("@aws-sdk/client-sns");
+const { Logger } = require("../../logger/Logger");
+const { SNSClient, PublishCommand } = require("@aws-sdk/client-sns");
 const { EXCHANGE_1, EXCHANGE_2, TOPIC_ARN } = require("../../../constant");
 class WorkFlowBuilder extends Builder {
   constructor(manager, page) {
     super(manager, page);
+
+    this._logId = "";
   }
 
   async navigate() {
@@ -63,9 +66,9 @@ class WorkFlowBuilder extends Builder {
     this.page.clearExpiry();
   }
 
-async sendSNS() {
-  const sns = new SNSClient({ region: "ap-south-1" });  
-  try {
+  async sendSNS() {
+    const sns = new SNSClient({ region: "ap-south-1" });
+    try {
       const message = this.page.getData();
 
       const command = new PublishCommand({
@@ -80,6 +83,34 @@ async sendSNS() {
       console.error("Error sending SNS:", e);
       throw e;
     }
+  }
+
+  _bindLogging() {
+    const methods = this._filterMethods();
+
+    for (const method of methods) {
+      const original = this[method].bind(this);
+
+      this[method] = async (...args) => {
+        const start = Logger.start(this._logId, method);
+        try {
+          return await original(...args);
+        } finally {
+          Logger.end(this._logId, method, start);
+        }
+      };
+    }
+  }
+
+  _filterMethods() {
+    const allMethods = Object.getOwnPropertyNames(Object.getPrototypeOf(this));
+    const publicMethods = allMethods.filter(
+      (method) =>
+        method !== "constructor" &&
+        typeof this[method] === "function" &&
+        !method.startsWith("_")
+    );
+    return publicMethods;
   }
 }
 

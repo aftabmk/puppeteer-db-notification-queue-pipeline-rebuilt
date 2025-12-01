@@ -1,5 +1,7 @@
+// Page.js
 const zlib = require("zlib");
 const { ExchangeBuilder } = require("./utils/ExchangeBuilder");
+const { Logger } = require("../logger/Logger");
 
 class Page extends ExchangeBuilder {
   #expiry_url;
@@ -7,6 +9,7 @@ class Page extends ExchangeBuilder {
 
   constructor(pageMeta) {
     super(pageMeta);
+
     this.#expiry_url = [];
     this.#expiry_data = [];
   }
@@ -16,11 +19,10 @@ class Page extends ExchangeBuilder {
   }
 
   getParams() {
-    const { EXCHANGE, TYPE ,PAGE_URL, API_URL } = this.getMeta();
-    return { EXCHANGE, TYPE ,PAGE_URL, API_URL };
+    const { EXCHANGE, TYPE, PAGE_URL, API_URL } = this.getMeta();
+    return { EXCHANGE, TYPE, PAGE_URL, API_URL };
   }
 
-  // just delegate build to parent
   buildUrl(data) {
     const urls = super.buildUrl(data);
     this.#expiry_url.push(...urls);
@@ -30,9 +32,6 @@ class Page extends ExchangeBuilder {
     return [...this.#expiry_url];
   }
 
-  toggleCompleted() {
-    this.completed = !this.completed;
-  }
   insertArray(data) {
     this.#expiry_data = data;
   }
@@ -40,9 +39,10 @@ class Page extends ExchangeBuilder {
   getData() {
     const { EXCHANGE, TYPE } = this.getParams();
     const data = this.#expiry_data;
-    const json = JSON.stringify({EXCHANGE,TYPE,data});
-    // Compress with gzip
-    const compressed = zlib.gzipSync(json); 
+
+    const json = JSON.stringify({ EXCHANGE, TYPE, data });
+    const compressed = zlib.gzipSync(json);
+
     return compressed.toString("base64");
   }
 
@@ -51,8 +51,7 @@ class Page extends ExchangeBuilder {
   }
 
   isCached() {
-    // if no prev expiry link created , running fresh instance
-    return this.#expiry_url.length != 0;
+    return this.#expiry_url.length !== 0;
   }
 }
 
