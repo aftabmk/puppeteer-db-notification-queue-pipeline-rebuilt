@@ -1,7 +1,7 @@
 const { Builder } = require("./utils/Builder");
 const { Logger } = require("../../logger/Logger");
 const { SNSClient, PublishCommand } = require("@aws-sdk/client-sns");
-const { EXCHANGE_1, EXCHANGE_2, TOPIC_ARN } = require("../../../constant");
+const { EXCHANGE_1, EXCHANGE_2, TOPIC_ARN, AWS_REGION } = require("../../../constant");
 class WorkFlowBuilder extends Builder {
   constructor(manager, page) {
     super(manager, page);
@@ -67,7 +67,7 @@ class WorkFlowBuilder extends Builder {
   }
 
   async sendSNS() {
-    const sns = new SNSClient({ region: "ap-south-1" });
+    const sns = new SNSClient({ region: AWS_REGION });
     try {
       const message = this.page.getData();
 

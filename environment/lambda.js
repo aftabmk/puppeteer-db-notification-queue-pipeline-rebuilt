@@ -1,14 +1,8 @@
 const { main, close } = require('../main');
 
-const timeWorkFlow = async () => {
-  console.time("workflow");
-  await main();
-  console.timeEnd("workflow");
-};
-
 const lambda = async () => {
   try {
-    await timeWorkFlow();
+    await main();
     return {
       status: 200,
       message: "Workflow completed successfully",

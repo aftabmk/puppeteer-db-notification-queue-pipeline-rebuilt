@@ -31,7 +31,7 @@ class BrowserFactory {
   // ⚙️ Protected (internal) manager creator
   static async #createManager(options = {}) {
     await this.#init();
-    console.log("🚀 Creating new BrowserManager");
+    // console.log("🚀 Creating new BrowserManager");
 
     const manager = new BrowserManager(this.#puppeteer, this.#chromium, this.#isLambda);
     await manager.launch(options);
@@ -42,11 +42,11 @@ class BrowserFactory {
   // ✅ Public accessor: safely returns (or creates) BrowserManager
   static async getManager(options = {}) {
     if (this.#manager && this.#manager.browser && this.#manager.browser.isConnected()) {
-      console.log("♻️ Reusing existing BrowserManager");
+      // console.log("♻️ Reusing existing BrowserManager");
       return this.#manager;
     }
 
-    console.log("⚙️ No active manager found — creating new one");
+    // console.log("⚙️ No active manager found — creating new one");
     await this.#createManager(options);
     return this.#manager;
   }
