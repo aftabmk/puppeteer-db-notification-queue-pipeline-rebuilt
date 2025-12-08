@@ -12,7 +12,6 @@ class Builder {
     };
     this.result = [];
     this.format = [];
-    this.log = [];
     this.filterDataArray = []
 
     this.#buildParams();
@@ -55,9 +54,6 @@ class Builder {
       const { value : { data , status }} = payload;
       if(status === 200)
         this.filterDataArray.push(data);
-
-      const now = Date.now();
-      this.log.push({date : now, status : status});
     }
   }
 }

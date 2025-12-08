@@ -58,8 +58,8 @@ class Logger {
     }
 
     for (let [id, entries] of Logger.store) {
-      console.log(`ID: ${id}`);
       console.log("=".repeat(40) + "LOGGER BEGIN" + "=".repeat(40));
+      console.log(`ID: ${id}`);
 
       entries.forEach((entry, idx) => {
         const { start, end, duration } = entry;
