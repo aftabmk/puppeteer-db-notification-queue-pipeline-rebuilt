@@ -1,7 +1,7 @@
-const DATA = Object.freeze({
+const Worker = Object.freeze({
     OPTION : "OPTION",
     FUTURE : "FUTURE",
     EQUITY : "EQUITY",
 });
 
-module.exports = { DATA };
+module.exports = { Worker };

@@ -1,4 +1,5 @@
 const { Request } = require('./request');
+const { Worker } = require('./worker');
 const { BrowserConfig } = require('./browser');
 const { PageType_1, PageType_2 } = require('./page');
 
@@ -26,4 +27,4 @@ const WaitUntil = Object.freeze({
   DOM_CONTENT_LOADED: "domcontentloaded",
 });
 
-module.exports = { ContentType, PageType, PageParams, WaitUntil, Request, BrowserConfig }
+module.exports = { ContentType, PageType, PageParams, WaitUntil, Request, BrowserConfig, Worker}

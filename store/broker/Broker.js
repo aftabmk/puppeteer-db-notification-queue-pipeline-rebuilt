@@ -1,4 +1,4 @@
-const { DATA } = require("./BrokerType");
+const { Worker } = require("../../types");
 const { EquityWorker, OptionWorker, FutureWorker } = require("./utils");
 
 class Broker {
@@ -12,13 +12,13 @@ class Broker {
     const { TYPE } = this.page.getParams();
 
     switch (TYPE) {
-      case DATA.EQUITY:
+      case Worker.EQUITY:
         this.worker = new EquityWorker(this.manager,this.page);
         break;
-      case DATA.FUTURE:
+      case Worker.FUTURE:
         this.worker = new FutureWorker(this.manager,this.page);
         break;
-      case DATA.OPTION:
+      case Worker.OPTION:
         this.worker = new OptionWorker(this.manager,this.page);
         break;
       default:
