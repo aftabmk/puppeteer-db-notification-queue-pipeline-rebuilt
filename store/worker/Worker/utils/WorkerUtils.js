@@ -1,4 +1,4 @@
-const { PageParams, WaitUntil } = require("../../../../../types");
+const { PageParams, WaitUntil } = require("../../../../types");
 
 class WorkerUtils {
   constructor(manager, page) {

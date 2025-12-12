@@ -1,5 +1,5 @@
 const { Worker } = require("../../Worker/Worker");
-const { EXCHANGE_1, EXCHANGE_2 } = require("../../../../../constant");
+const { EXCHANGE_1, EXCHANGE_2 } = require("../../../../constant");
 
 class OptionWorkerUtils extends Worker {
   constructor(manager, page) {

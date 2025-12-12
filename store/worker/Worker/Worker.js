@@ -1,5 +1,5 @@
 const { WorkerUtils } = require("./utils/WorkerUtils");
-const { TOPIC_ARN, AWS_REGION } = require("../../../../constant");
+const { TOPIC_ARN, AWS_REGION } = require("../../../constant");
 const { SNSClient, PublishCommand } = require("@aws-sdk/client-sns");
 
 class Worker extends WorkerUtils {

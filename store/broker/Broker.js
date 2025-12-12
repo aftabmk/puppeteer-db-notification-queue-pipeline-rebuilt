@@ -1,5 +1,5 @@
 const { Worker } = require("../../types");
-const { EquityWorker, OptionWorker, FutureWorker } = require("./utils");
+const { EquityWorker, OptionWorker, FutureWorker } = require("../worker");
 
 class Broker {
   constructor(manager, page) {
