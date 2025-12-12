@@ -3,17 +3,21 @@ const { Broker } = require('../broker/Broker');
 class WorkFlow extends WorkFlowBuilder {
   constructor(manager, page) {
     super(manager, page);
-    this.bindLogger();
+
+    this._bindLogger();
+    this._assignWorker();
   }
   
-  bindLogger() {
+  _bindLogger() {
     // binding to find function runtime
     const { EXCHANGE, TYPE } = this.page.getParams();
     super._logId = EXCHANGE + '_' + TYPE;
     super._bindLogging();
-
-    const broker = Broker.getInstance(this.manager,this.page);
-    broker.getWorker()
+  }
+  
+  _assignWorker() {
+    const broker = new Broker(this.manager,this.page);
+    broker.buildWorker()
     broker.deployWorker();
   }
 
