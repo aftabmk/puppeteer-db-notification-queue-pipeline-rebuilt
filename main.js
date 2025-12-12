@@ -9,12 +9,12 @@ const main = async () => {
   // Run the workflow
   await workflow.run();
 
-  Logger.log();
 };
 
 const close = async() => {
     const manager = await buildBrowser();
     manager.close();
+    Logger.log();
 }
 
 module.exports = { main, close };

@@ -3,14 +3,16 @@ const { WorkFlowBuilder } = require("./utils/WorkFlowBuilder");
 class WorkFlow extends WorkFlowBuilder {
   constructor(manager, page) {
     super(manager, page);
-    
-    const { EXCHANGE, TYPE } = page.getParams();
-    
+    this.bindLogger();
+  }
+  
+  bindLogger() {
     // binding to find function runtime
+    const { EXCHANGE, TYPE } = this.page.getParams();
     super._logId = EXCHANGE + '_' + TYPE;
     super._bindLogging();
   }
-  
+
   async workflow() {
     await super.navigate();
     await super.fetch();
