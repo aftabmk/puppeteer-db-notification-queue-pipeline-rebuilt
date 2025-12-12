@@ -1,7 +1,6 @@
 // Page.js
 const zlib = require("zlib");
 const { ExchangeBuilder } = require("./utils/ExchangeBuilder");
-const { Logger } = require("../logger/Logger");
 
 class Page extends ExchangeBuilder {
   #expiry_url;

@@ -22,20 +22,26 @@ class WorkFlow extends WorkFlowBuilder {
   }
   
   async workflow() {
-    await super.navigate();
-    await super.fetch();
-    super.processData();
-    await super.fetchExpiry();
-    // await super.sendSNS();
-    // this.broker.deployWorker();
+    await this.broker.deployWorker();
   }
   
   async workflowCache() {
-    super.clearPrevExpiryData();
-    await super.fetchExpiry();
-    // await super.sendSNS();
-    // this.broker.deployWorkerCached();
+    await this.broker.deployWorkerCached();
   }
+
+  // async workflow() {
+  //   await super.navigate();
+  //   await super.fetch();
+  //   super.processData();
+  //   await super.fetchExpiry();
+  //   await super.sendSNS();
+  // }
+
+  // async workflowCache() {
+  //   super.clearPrevExpiryData();
+  //   await super.fetchExpiry();
+  //   await super.sendSNS();
+  // }
 }
 
 module.exports = { WorkFlow };

@@ -8,6 +8,7 @@ const runTimer = async (interval = 30, iterations = 1) => {
       await new Promise(resolve => setTimeout(resolve, interval * 1000));
     }
   }
+  
   await close();
 };
 

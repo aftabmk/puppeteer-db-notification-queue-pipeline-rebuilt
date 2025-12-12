@@ -1,4 +1,6 @@
-class EquityWorker {
+const { Worker } = require("../Worker/Worker");
+
+class EquityWorker extends Worker {
     constructor(manager,page) {
         super(manager,page);
     }
@@ -13,7 +15,6 @@ class EquityWorker {
     }
     
     async workflowCached() {
-        super.clearPrevExpiryData();
         // fetch expiry
         await super.fetch()
         // send sns

@@ -1,4 +1,6 @@
-class OptionWorker {
+const { OptionWorkerUtils } = require("./utils/OptionWorkerUtils");
+
+class OptionWorker extends OptionWorkerUtils {
     constructor(manager,page) {
         super(manager,page);
     }

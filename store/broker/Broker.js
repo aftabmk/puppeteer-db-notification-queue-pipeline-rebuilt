@@ -9,31 +9,31 @@ class Broker {
   }
 
   buildWorker() {
-    const { EXCHANGE, TYPE } = this.page.getParams();
+    const { TYPE } = this.page.getParams();
 
     switch (TYPE) {
       case DATA.EQUITY:
-        this.worker = new EquityWorker(EXCHANGE);
+        this.worker = new EquityWorker(this.manager,this.page);
         break;
       case DATA.FUTURE:
-        this.worker = new FutureWorker(EXCHANGE);
+        this.worker = new FutureWorker(this.manager,this.page);
         break;
       case DATA.OPTION:
-        this.worker = new OptionWorker(EXCHANGE);
+        this.worker = new OptionWorker(this.manager,this.page);
         break;
       default:
-        console.log("Invalid type:", TYPE);
+        console.log("Invalid type: %s", TYPE);
     }
 
     return this.worker;
   }
 
-  deployWorker() {
-    return this.worker.workflow();
+  async deployWorker() {
+    await this.worker.workflow();
   }
 
-  deployWorkerCached() {
-    return this.worker.workflowCached();
+  async deployWorkerCached() {
+    await this.worker.workflowCached();
   }
 }
 
