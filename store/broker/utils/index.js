@@ -1,5 +1,5 @@
-const { EquityWorker } = require('./EquityWorker');
-const { FutureWorker } = require('./FutureWorker');
-const { OptionWorker } = require('./OptionWorker');
+const { EquityWorker } = require('./EquityWorker/EquityWorker');
+const { FutureWorker } = require('./FutureWorker/FutureWorker');
+const { OptionWorker } = require('./OptionWorker/OptionWorker');
 
 module.exports = { EquityWorker, FutureWorker, OptionWorker };

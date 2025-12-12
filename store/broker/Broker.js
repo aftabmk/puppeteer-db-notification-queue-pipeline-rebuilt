@@ -29,7 +29,11 @@ class Broker {
   }
 
   deployWorker() {
-    return this.worker;
+    return this.worker.workflow();
+  }
+
+  deployWorkerCached() {
+    return this.worker.workflowCached();
   }
 }
 

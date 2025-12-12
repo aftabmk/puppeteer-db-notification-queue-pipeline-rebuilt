@@ -9,16 +9,7 @@ class WorkflowInstance {
     this.workflows = this.pages.map((page) => new WorkFlow(manager, page));
   }
 
-  // 🧩 Execute the actual workflow
-  async run() {
-    let isCached = this.pages.map((page) => page.isCached());
-    await Promise.allSettled(
-      this.workflows.map((workflow, i) =>
-        isCached[i] ? workflow.workflowCache() : workflow.workflow()
-      )
-    );
-  }
-
+  
   // 🏗️ Singleton instance getter/creator
   static getInstance(manager) {
     if (!WorkflowInstance.instance) {
@@ -30,6 +21,16 @@ class WorkflowInstance {
   // 🧹 Reset (useful for testing or re-init)
   static reset() {
     WorkflowInstance.instance = null;
+  }
+  
+  // 🧩 Execute the actual workflow
+  async run() {
+    let isCached = this.pages.map((page) => page.isCached());
+    await Promise.allSettled(
+      this.workflows.map((workflow, i) =>
+        isCached[i] ? workflow.workflowCache() : workflow.workflow()
+      )
+    );
   }
 }
 
