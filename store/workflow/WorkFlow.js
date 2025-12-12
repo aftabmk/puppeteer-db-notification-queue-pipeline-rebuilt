@@ -1,5 +1,5 @@
 const { WorkFlowBuilder } = require("./utils/WorkFlowBuilder");
-
+const { Broker } = require('../broker/Broker');
 class WorkFlow extends WorkFlowBuilder {
   constructor(manager, page) {
     super(manager, page);
@@ -11,6 +11,10 @@ class WorkFlow extends WorkFlowBuilder {
     const { EXCHANGE, TYPE } = this.page.getParams();
     super._logId = EXCHANGE + '_' + TYPE;
     super._bindLogging();
+
+    const broker = Broker.getInstance(this.manager,this.page);
+    broker.getWorker()
+    broker.deployWorker();
   }
 
   async workflow() {
