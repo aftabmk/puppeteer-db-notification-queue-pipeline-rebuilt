@@ -11,10 +11,13 @@ class WorkerUtils {
       waitUntil: null,
     };
     this.result = [];
+    this.filterDataArray = [];
+    
     this.#buildParams();
   }
   // params WorkerUtils
   #getPageParams(param) {
+    // const { param } = getParam() or getParam()[param]
     return this.page.getParams()[param];
   }
 

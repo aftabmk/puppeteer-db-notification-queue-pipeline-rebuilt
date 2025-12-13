@@ -68,15 +68,6 @@ class OptionWorkerUtils extends Worker {
     }
   }
 
-  filterData(payloadArr) {
-    for (let payload of payloadArr) {
-      const {
-        value: { data, status },
-      } = payload;
-      if (status === 200) this.filterDataArray.push(data);
-    }
-  }
-
   clearPrevExpiryData() {
     this.page.clearExpiry();
   }

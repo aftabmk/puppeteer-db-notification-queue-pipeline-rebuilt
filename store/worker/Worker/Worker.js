@@ -38,6 +38,15 @@ class Worker extends WorkerUtils {
     }
   }
 
+  filterData(payloadArr) {
+    for (let payload of payloadArr) {
+      const {
+        value: { data, status },
+      } = payload;
+      if (status === 200) this.filterDataArray.push(data);
+    }
+  }
+
   _bindLogging() {
     const methods = this._filterMethods();
 
