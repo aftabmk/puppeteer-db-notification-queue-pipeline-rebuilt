@@ -4,7 +4,7 @@ const {
     EXCHANGE_2,PAGE_URL_2, API_URL_2, API_URL_BUILDER_2
 } = require("../constant")
 
-
+// build custom pages
 const PageType_1 = Object.freeze({
     EXCHANGE    : EXCHANGE_1,
     TYPE        : DataTypes.OPTION,
@@ -21,6 +21,7 @@ const PageType_2 = Object.freeze({
     URL_BUILDER : API_URL_BUILDER_2 
 })
 
+// Page aggregator
 const PageType = Object.freeze({
     PageType_1 : PageType_1, 
     PageType_2 : PageType_2, 
