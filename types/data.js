@@ -1,6 +1,7 @@
 const DataTypes = Object.freeze({
     OPTION : "OPTION",
     FUTURE : "FUTURE",
+    EQUITY : "EQUITY",
     ACTIVE : "ACTIVE"
 });
 

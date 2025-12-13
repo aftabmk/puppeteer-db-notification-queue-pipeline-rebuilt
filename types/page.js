@@ -21,5 +21,15 @@ const PageType_2 = Object.freeze({
     URL_BUILDER : API_URL_BUILDER_2 
 })
 
+const PageType = Object.freeze({
+    PageType_1 : PageType_1, 
+    PageType_2 : PageType_2, 
+})
 
-module.exports = { PageType_1, PageType_2 }
+const PageParams = Object.freeze({
+    EXCHANGE    : "EXCHANGE",
+    PAGE_URL    : "PAGE_URL",
+    API_URL     : "API_URL",
+})
+
+module.exports = { PageType, PageParams }

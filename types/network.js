@@ -16,4 +16,17 @@ const Request = Object.freeze({
   OTHER       : "other"
 });
 
-module.exports = { Request };
+const ContentType = Object.freeze({
+    HTTP                : "http",
+    COOKIE              : "cookie",
+    APPLICATION_JSON    : "application/json",
+})
+
+const WaitUntil = Object.freeze({
+  LOAD              : "load",                    
+  NETWORK_IDLE_0    : "networkidle0",  
+  NETWORK_IDLE_2    : "networkidle2",
+  DOM_CONTENT_LOADED: "domcontentloaded",
+});
+
+module.exports = { Request, ContentType, WaitUntil};
