@@ -17,7 +17,7 @@ class WorkerUtils {
   }
   // params WorkerUtils
   #getPageParams(param) {
-    // const { param } = getParam() or getParam()[param]
+    // const { param } = getParam()
     return this.page.getParams()[param];
   }
 
