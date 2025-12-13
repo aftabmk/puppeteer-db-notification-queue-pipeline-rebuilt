@@ -1,6 +1,6 @@
 const { Broker } = require('../broker/Broker');
-const { WorkFlowBuilder } = require("./utils/WorkFlowBuilder");
-class WorkFlow extends WorkFlowBuilder {
+const { WorkFlowUtils } = require("./utils/WorkFlowUtils");
+class WorkFlow extends WorkFlowUtils {
   constructor(manager, page) {
     super(manager, page);
     this.broker = null;
@@ -28,20 +28,6 @@ class WorkFlow extends WorkFlowBuilder {
   async workflowCache() {
     await this.broker.deployWorkerCached();
   }
-
-  // async workflow() {
-  //   await super.navigate();
-  //   await super.fetch();
-  //   super.processData();
-  //   await super.fetchExpiry();
-  //   await super.sendSNS();
-  // }
-
-  // async workflowCache() {
-  //   super.clearPrevExpiryData();
-  //   await super.fetchExpiry();
-  //   await super.sendSNS();
-  // }
 }
 
 module.exports = { WorkFlow };
