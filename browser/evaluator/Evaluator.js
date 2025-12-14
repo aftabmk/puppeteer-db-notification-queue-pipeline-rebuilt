@@ -1,5 +1,5 @@
-const { EXCHANGE_2 } = require('../../constant');
-const { ContentType } = require('../../types');
+const { EXCHANGE_100 } = require("../../constant");
+const { ContentType } = require("../../types");
 class Evaluator {
   constructor(pageManager) {
     this.pageManager = pageManager;
@@ -7,8 +7,7 @@ class Evaluator {
   }
 
   async buildHeaders(pageName) {
-    if (!this.cookieManager)
-      throw new Error('CookieManager not initialized via PageManager');
+    if (!this.cookieManager) throw new Error("CookieManager not initialized via PageManager");
 
     let cookies = this.cookieManager.cookieStore.get(pageName);
     if (!cookies || cookies.length === 0) {
@@ -16,7 +15,7 @@ class Evaluator {
       cookies = await this.cookieManager.getCookies(pageName);
     }
 
-    const cookieHeader = cookies.map(c => `${c.name}=${c.value}`).join('; ');
+    const cookieHeader = cookies.map((c) => `${c.name}=${c.value}`).join("; ");
 
     const headers = {
       Accept: "application/json, text/plain, */*",
@@ -31,39 +30,40 @@ class Evaluator {
     return headers;
   }
 
-  async evaluateFetch(page, url, pagename, headers) {
-    // debugger
-    return await page.evaluate(async ({ url, headers, pagename, EXCHANGE_2 }) => {
-      try {
-        let res;
-        if(pagename == EXCHANGE_2)
-          res = await fetch(url);
-        else
-          res = await fetch(url, { headers,credentials: "include" });
   
-        const contentType = res.headers.get("content-type") || "";
-
-        if (!contentType.includes("application/json")) {
-          return {
-            status: 400,
-            data: [],
-            message: `Unexpected content-type: ${contentType}`,
-          };
-        }
-
-        const data = await res.json();
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
-        return { status: 200, data, message: "Success" };
-      } 
-      catch (err) {
+  async fetchEval({ url, headers, pagename, EXCHANGE_100, ContentType }) {
+    try {
+      let res;
+      if (pagename == EXCHANGE_100) res = await fetch(url);
+      else res = await fetch(url, { headers, credentials: "include" });
+      
+      const contentType = res.headers.get("content-type") || "";
+      
+      if (!contentType.includes(ContentType.APPLICATION_JSON)) {
         return {
           status: 400,
           data: [],
-          message: err.message || "Unexpected error",
+          message: `Unexpected content-type: ${contentType}`,
         };
       }
-    }, { url, headers, pagename, EXCHANGE_2 });
+      
+      const data = await res.json();
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      
+      return { status: 200, data, message: "Success" };
+    } 
+    catch (err) {
+      return {
+        status: 400,
+        data: [],
+        message: err.message || "Unexpected error",
+      };
+    }
+  }
+
+  async evaluateFetch(page, url, pagename, headers) {
+    // debugger
+    return await page.evaluate(this.fetchEval, { url, headers, pagename, EXCHANGE_100, ContentType });
   }
 
   async attemptFetchWithRetry(pageName, url, maxAttempts = 3) {
@@ -74,7 +74,7 @@ class Evaluator {
       // console.log(`🧪 Attempt ${attempt} for ${url}`);
 
       const headers = await this.buildHeaders(pageName);
-      const result = await this.evaluateFetch(page, url, pageName,headers);
+      const result = await this.evaluateFetch(page, url, pageName, headers);
 
       if (result.status === 200) {
         // console.log(`✅ Fetch succeeded on attempt ${attempt}`);

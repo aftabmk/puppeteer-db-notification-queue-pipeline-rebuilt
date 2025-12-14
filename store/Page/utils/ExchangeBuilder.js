@@ -1,5 +1,5 @@
 // store/builders/ExchangeBuilder.js
-const { EXCHANGE_1, EXCHANGE_2 } = require('../../../constant');
+const { EXCHANGE_1, EXCHANGE_100 } = require('../../../constant');
 
 class ExchangeBuilder {
     #meta;
@@ -18,7 +18,7 @@ class ExchangeBuilder {
         switch (this.#meta.EXCHANGE) {
             case EXCHANGE_1:
                 return this.buildExchangeOne(data);
-            case EXCHANGE_2:
+            case EXCHANGE_100:
                 return this.buildExchangeTwo(data);
             default:
                 throw new Error(`Unknown exchange type: ${this.meta.EXCHANGE}`);

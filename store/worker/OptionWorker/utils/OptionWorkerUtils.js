@@ -1,5 +1,5 @@
 const { Worker } = require("../../Worker/Worker");
-const { EXCHANGE_1, EXCHANGE_2 } = require("../../../../constant");
+const { EXCHANGE_1, EXCHANGE_100 } = require("../../../../constant");
 
 class OptionWorkerUtils extends Worker {
   constructor(manager, page) {
@@ -29,7 +29,7 @@ class OptionWorkerUtils extends Worker {
       case EXCHANGE_1:
         this.processDataExchangeOne();
         break;
-      case EXCHANGE_2:
+      case EXCHANGE_100:
         this.processDataExchangeTwo();
         break;
       default:

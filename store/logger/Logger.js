@@ -73,7 +73,7 @@ class Logger {
         );
       });
 
-      console.log("-".repeat(90) + "\n");
+      console.log("-".repeat(92) + "\n");
     }
 
     console.log("=".repeat(40) + "LOGGER   END" + "=".repeat(40));
