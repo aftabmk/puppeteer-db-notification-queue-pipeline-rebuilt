@@ -1,3 +1,4 @@
+const { WaitUntil } = require('../../types');
 class PageManager {
   constructor(context, cookieManager, interceptor) {
     this.context = context;
@@ -39,7 +40,7 @@ class PageManager {
     const page = this.pages.get(name);
     if (!page) return;
 
-    await page.reload({ waitUntil: 'domcontentloaded' });
+    await page.reload({ waitUntil: WaitUntil.DOM_CONTENT_LOADED });
 
     // refresh cookies after reload
     if (this.cookieManager) {

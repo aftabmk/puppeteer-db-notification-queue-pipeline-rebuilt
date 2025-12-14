@@ -10,7 +10,6 @@ class RequestInterceptor {
     if (page._interceptionSet) return;
 
     await page.setRequestInterception(true);
-    // await page.setJavaScriptEnabled(false);
 
     const handler = (req) => this.#handleRequest(req);
     page._requestInterceptorHandler = handler;
@@ -48,16 +47,6 @@ class RequestInterceptor {
     if (allowed) this.allowed = allowed;
     if (disallowed) this.disallowed = disallowed;
   }
-
-  // #handleRequest(req) {
-  //   const url = req.url();
-  //   const isAllowed =
-  //     this.allowed.length === 0 || this.allowed.some((d) => url.includes(d));
-  //   const isBlocked = this.disallowed.some((d) => url.includes(d));
-  
-  //   if (!isAllowed || isBlocked) req.abort();
-  //   else req.continue();
-  // }
 }
 
 module.exports = { RequestInterceptor };

@@ -12,4 +12,9 @@ LAMBDA: Object.freeze({
   })
 });
 
-module.exports = { BrowserConfig };
+const ViewPort = Object.freeze({
+  Width : 1920,
+  Height : 1080
+});
+
+module.exports = { BrowserConfig, ViewPort };

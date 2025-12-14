@@ -1,3 +1,4 @@
+const { LOG } = require('./log');
 const { BrowserManagerUtils } = require('./utils/BrowserManagerUtils');
 
 class BrowserManager extends BrowserManagerUtils {
@@ -8,14 +9,14 @@ class BrowserManager extends BrowserManagerUtils {
   async launch({ headless, devtools, args }) {
     let options = this.setOption(headless,devtools,args);
     await this.launchBrowser(options);
-    
-    console.log(`✅ Browser launched (${this.isLambda ? 'Lambda' : 'Local'} | ${headless ? 'headless' : 'head'})`);
+
+    LOG.LAUNCH(this.isLambda,headless);
   }
 
   async close() {
     if (this.browser) {
       await this.browser.close();
-      console.log('🧩 Browser closed cleanly');
+      LOG.CLOSE;
     }
   }
 }

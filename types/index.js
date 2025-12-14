@@ -1,6 +1,5 @@
 const { DataTypes } = require('./data');
-const { ViewPort } = require('./viewport');
-const { BrowserConfig } = require('./browser');
+const { BrowserConfig , ViewPort } = require('./browser');
 const { PageType, PageParams } = require('./page');
 const { Request, ContentType, WaitUntil } = require('./network');
 
