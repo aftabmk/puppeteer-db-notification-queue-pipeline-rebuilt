@@ -5,21 +5,20 @@ class OptionWorkerUtils extends Worker {
   constructor(manager, page) {
     super(manager, page);
 
-    this.format = [];
-    this.filterDataArray = [];
+    this.formattedDates = [];
   }
 
   async fetchExpiry() {
-	const { exchange: EXCHANGE } = this.params;
-	const expiryUrls = this.page.getExpiryUrl();
+    const key = this.page.getKey();
+    const expiryUrls = this.page.getExpiryUrl();
 
-	const results = await Promise.allSettled(expiryUrls.map((expiryUrl) => this.manager.evaluator.fetchInsidePage(EXCHANGE, expiryUrl)));
+    const results = await Promise.all(expiryUrls.map((expiryUrl) => this.manager.evaluator.fetchInsidePage(key, expiryUrl)));
 
-	this.filterData(results);
+    this.filterData(results);
 
-	if (this.filterDataArray.length) this.page.insertArray(this.filterDataArray);
+    if (this.filterDataArray.length) this.page.insertArray(this.filterDataArray);
 
-	this.filterDataArray = [];
+    this.filterDataArray = [];
   }
 
   processData() {
@@ -37,7 +36,7 @@ class OptionWorkerUtils extends Worker {
     }
 
     // debugger
-    this.page.buildUrl(this.format);
+    this.page.buildUrl(this.formattedDates);
   }
 
   // data processor
@@ -46,32 +45,32 @@ class OptionWorkerUtils extends Worker {
     const {
       data: { expiryDates },
       status,
-      message
+      message,
     } = this.result;
 
+    // debugger
     if (status !== 200) throw new Error(`status : ${status} , message : ${message}`);
-    else this.format = expiryDates.slice(0, 2);
+    else this.formattedDates = expiryDates.slice(0, 2);
   }
 
   processDataExchangeTwo() {
     const {
       data: { Table1 },
       status,
-      message
+      message,
     } = this.result;
 
     if (status !== 200) throw new Error(`status : ${status} , message : ${message}`);
     else {
       const expiryDates = Table1.map((obj) => obj.ExpiryDate);
 
-      this.format = expiryDates.slice(0, 2);
+      this.formattedDates = expiryDates.slice(0, 2);
     }
   }
 
   clearPrevExpiryData() {
     this.page.clearExpiry();
   }
-
 }
 
 module.exports = { OptionWorkerUtils };

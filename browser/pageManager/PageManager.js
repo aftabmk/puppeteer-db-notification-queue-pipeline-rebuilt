@@ -30,6 +30,7 @@ class PageManager {
   getPage(name) {
     const page = this.pages.get(name);
     if (!page) throw new Error(`Page "${name}" not found`);
+    // debugger
     return page;
   }
 

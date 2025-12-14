@@ -4,6 +4,7 @@ class WorkerUtils {
   constructor(manager, page) {
     this.page = page;
     this.manager = manager;
+    
     this.params = {
       api_url: null,
       exchange: null,
@@ -12,6 +13,7 @@ class WorkerUtils {
       type : null,
       key : null
     };
+
     this.result = [];
     this.filterDataArray = [];
     

@@ -30,6 +30,7 @@ class Broker {
 
   async deployWorker() {
     await this.worker.workflow();
+    // debugger;
   }
 
   async deployWorkerCached() {

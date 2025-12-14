@@ -16,6 +16,7 @@ class Worker extends WorkerUtils {
 
   async fetch() {
     const { key, api_url } = this.params;
+    // find page with key and fetch api
     this.result = await this.manager.evaluator.fetchInsidePage(key, api_url);
   }
 
@@ -38,14 +39,17 @@ class Worker extends WorkerUtils {
     }
   }
 
+  // { status, value : { status, data, message }};
   filterData(payloadArr) {
+    // debugger;
     for (let payload of payloadArr) {
-      const {
-        value: { data, status },
-      } = payload;
-      if (status === 200) this.filterDataArray.push(data);
+      const { data, status } = payload;
+      if (status === 200) 
+        this.filterDataArray.push(data);
     }
   }
+
+
 }
 
 module.exports = { Worker };

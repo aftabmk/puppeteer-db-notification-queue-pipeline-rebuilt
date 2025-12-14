@@ -4,9 +4,6 @@ const { EXCHANGE_1, EXCHANGE_100 } = require('../../../constant');
 class ExchangeBuilder {
     #meta;
     constructor(meta) {
-        if (new.target === ExchangeBuilder) {
-            throw new Error("Cannot instantiate abstract class ExchangeBuilder directly");
-        }
         this.#meta = meta;
     }
 

@@ -1,6 +1,6 @@
-const { Worker } = require("../Worker/Worker");
+const { FutureWorkerUtils } = require("./utils/FutureWorkerUtils");
 
-class FutureWorker extends Worker {
+class FutureWorker extends FutureWorkerUtils {
     constructor(manager,page) {
         super(manager,page);
     }
@@ -10,6 +10,7 @@ class FutureWorker extends Worker {
         await super.navigate()
         // get fetch
         await super.fetch();
+        super.processData();
         // send sns
         await super.sendSNS();
     }
@@ -17,6 +18,7 @@ class FutureWorker extends Worker {
     async workflowCached() {
         // fetch expiry
         await super.fetch()
+        super.processData();
         // send sns
         await super.sendSNS();
     }

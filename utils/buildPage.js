@@ -7,10 +7,11 @@ const pageRegistry = [
   new Page(PageType.PageType_2),
   new Page(PageType.PageType_3),
 
-  new Page(PageType.PageType_100)
+  // new Page(PageType.PageType_100)
 ];
 
 const pageBuilder = () => {
+
   DataStore.setPage(pageRegistry);
 }
 

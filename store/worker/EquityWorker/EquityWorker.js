@@ -1,6 +1,5 @@
-const { Worker } = require("../Worker/Worker");
-
-class EquityWorker extends Worker {
+const { EquityWorkerUtils } = require("./utils/EquityWorkerUtils");
+class EquityWorker extends EquityWorkerUtils {
     constructor(manager,page) {
         super(manager,page);
     }
@@ -10,6 +9,7 @@ class EquityWorker extends Worker {
         await super.navigate()
         // get fetch
         await super.fetch();
+        super.processData();
         // send sns
         await super.sendSNS();
     }
@@ -17,6 +17,7 @@ class EquityWorker extends Worker {
     async workflowCached() {
         // fetch expiry
         await super.fetch()
+        super.processData();
         // send sns
         await super.sendSNS();
     }
