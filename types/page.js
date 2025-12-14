@@ -1,19 +1,19 @@
 const { 
     PageType_1,PageType_2,PageType_3, 
-    PageType_100
+    PageType_100,PageType_101
 } = require('./pageAggregator');
 
 // Page aggregator
 const PageType = Object.freeze({
     PageType_1,PageType_2,PageType_3,
-    PageType_100
-})
+    PageType_100,PageType_101
+});
 
 const PageParams = Object.freeze({
     TYPE        : "TYPE",
     API_URL     : "API_URL",
     EXCHANGE    : "EXCHANGE",
     PAGE_URL    : "PAGE_URL",
-})
+});
 
 module.exports = { PageType, PageParams }

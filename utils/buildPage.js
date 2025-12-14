@@ -6,8 +6,9 @@ const pageRegistry = [
   new Page(PageType.PageType_1),
   new Page(PageType.PageType_2),
   new Page(PageType.PageType_3),
-
-  // new Page(PageType.PageType_100)
+  
+  new Page(PageType.PageType_100),
+  new Page(PageType.PageType_101),
 ];
 
 const pageBuilder = () => {

@@ -3,7 +3,9 @@ const {
     EXCHANGE_1, PAGE_URL_1, API_URL_1, API_URL_BUILDER_1,
     EXCHANGE_2, PAGE_URL_2, API_URL_2, API_URL_BUILDER_2,
     EXCHANGE_3, PAGE_URL_3, API_URL_3, API_URL_BUILDER_3,
-    EXCHANGE_100,PAGE_URL_100, API_URL_100, API_URL_BUILDER_100
+
+    EXCHANGE_100,PAGE_URL_100, API_URL_100, API_URL_BUILDER_100,
+    EXCHANGE_101,PAGE_URL_101, API_URL_101, API_URL_BUILDER_101
 } = require("../constant")
 
 
@@ -37,4 +39,12 @@ const PageType_100 = Object.freeze({
     URL_BUILDER : API_URL_BUILDER_100 
 });
 
-module.exports = { PageType_1, PageType_2, PageType_3, PageType_100 };
+const PageType_101 = Object.freeze({
+    EXCHANGE    : EXCHANGE_101,
+    TYPE        : DataTypes.FUTURE,
+    PAGE_URL    : PAGE_URL_101,
+    API_URL     : API_URL_101,
+    URL_BUILDER : API_URL_BUILDER_101 
+});
+
+module.exports = { PageType_1, PageType_2, PageType_3, PageType_100, PageType_101 };

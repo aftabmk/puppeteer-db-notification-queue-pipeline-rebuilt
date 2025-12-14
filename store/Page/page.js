@@ -7,12 +7,12 @@ class Page extends PageUtils {
   #database;
   #expiry_url;
 
-  constructor(pageMeta) {
-    super(pageMeta);
+  constructor(meta) {
+    super(meta);
 
-    this.#isCached = false;
     this.#database = [];
     this.#expiry_url = [];
+    this.#isCached = false;
   }
 
   getKey() {
