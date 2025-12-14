@@ -50,6 +50,7 @@ class Evaluator {
       const data = await res.json();
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       
+      // debugger
       return { status: 200, data, message: "Success" };
     } 
     catch (err) {
@@ -88,12 +89,12 @@ class Evaluator {
     return { status: 400, data: [], message: "All retries failed" };
   }
 
-  async fetchInsidePage(pageName, url) {
-    const page = this.pageManager.getPage(pageName);
-    if (!page) throw new Error(`Page "${pageName}" not found`);
+  async fetchInsidePage(pageId, url) {
+    const page = this.pageManager.getPage(pageId);
+    if (!page) throw new Error(`Page "${pageId}" not found`);
 
-    // console.log(`🌐 Fetching URL inside page "${pageName}": ${url}`);
-    const result = await this.attemptFetchWithRetry(pageName, url, 3);
+    // console.log(`🌐 Fetching URL inside page "${pageId}": ${url}`);
+    const result = await this.attemptFetchWithRetry(pageId, url, 3);
     return result;
   }
 }

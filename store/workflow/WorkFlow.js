@@ -10,9 +10,7 @@ class WorkFlow extends WorkFlowUtils {
   }
   
   _bindLogger() {
-    // binding to find function runtime
-    const { EXCHANGE, TYPE } = this.page.getParams();
-    super._logId = EXCHANGE + '_' + TYPE;
+    super._logId = this.page.getKey();
     super._bindLogging();
   }
   

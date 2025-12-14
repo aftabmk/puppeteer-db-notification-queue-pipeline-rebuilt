@@ -15,13 +15,13 @@ class Page extends ExchangeBuilder {
 
   getKey() {
     const { EXCHANGE, TYPE } = this.getMeta();
-    let key = EXCHANGE + "-" + TYPE;
-    return key;
+    const KEY = EXCHANGE + "-" + TYPE;
+    return KEY;
   }
-
+  
   getParams() {
-    const { EXCHANGE, TYPE, PAGE_URL, API_URL } = this.getMeta();
-    return { EXCHANGE, TYPE, PAGE_URL, API_URL };
+    // const { EXCHANGE, TYPE, PAGE_URL, API_URL } = this.getMeta();
+    return this.getMeta();
   }
 
   buildUrl(data) {

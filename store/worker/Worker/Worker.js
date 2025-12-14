@@ -8,15 +8,15 @@ class Worker extends WorkerUtils {
   }
 
   async navigate() {
-    const { waitUntil, exchange, page_url } = this.params;
+    const { waitUntil, page_url,key } = this.params;
 
-    const page = await this.manager.pageManager.newPage(exchange);
+    const page = await this.manager.pageManager.newPage(key);
     await page.goto(page_url, { waitUntil });
   }
 
   async fetch() {
-    const { exchange, api_url } = this.params;
-    this.result = await this.manager.evaluator.fetchInsidePage(exchange, api_url);
+    const { key, api_url } = this.params;
+    this.result = await this.manager.evaluator.fetchInsidePage(key, api_url);
   }
 
   async sendSNS() {

@@ -3,9 +3,9 @@ const { EquityWorker, OptionWorker, FutureWorker } = require("../worker");
 
 class Broker {
   constructor(manager, page) {
-    this.manager = manager;
     this.page = page;
     this.worker = null;
+    this.manager = manager;
   }
 
   buildWorker() {

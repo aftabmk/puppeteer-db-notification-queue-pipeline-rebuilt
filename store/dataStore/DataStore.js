@@ -1,6 +1,4 @@
 // datastore.js
-const { Page } = require('../index');
-
 class DataStore {
   // singleton cache
   static #pageCache = new Map();
@@ -12,7 +10,6 @@ class DataStore {
       }
 
       const key = page.getKey();
-      
       this.#pageCache.set(key, page);
     }
   }
