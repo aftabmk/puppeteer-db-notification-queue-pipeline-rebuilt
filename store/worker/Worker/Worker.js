@@ -13,11 +13,21 @@ class Worker extends WorkerUtils {
     const page = await this.manager.pageManager.newPage(key);
     await page.goto(page_url, { waitUntil });
   }
-
+  
   async fetch() {
     const { key, api_url } = this.params;
     // find page with key and fetch api
     this.result = await this.manager.evaluator.fetchInsidePage(key, api_url);
+  }
+
+  // { status, value : { status, data, message }};
+  filterData(payloadArr) {
+    // debugger;
+    for (let payload of payloadArr) {
+      const { data, status } = payload;
+      if (status === 200) 
+        this.filterDataArray.push(data);
+    }
   }
 
   async sendSNS() {
@@ -31,25 +41,16 @@ class Worker extends WorkerUtils {
       });
 
       const response = await sns.send(command);
+      // set cache
+      this.page.setCache();
 
       return response;
-    } catch (e) {
+    } 
+    catch (e) {
       console.error("Error sending SNS:", e);
       throw e;
     }
   }
-
-  // { status, value : { status, data, message }};
-  filterData(payloadArr) {
-    // debugger;
-    for (let payload of payloadArr) {
-      const { data, status } = payload;
-      if (status === 200) 
-        this.filterDataArray.push(data);
-    }
-  }
-
-
 }
 
 module.exports = { Worker };

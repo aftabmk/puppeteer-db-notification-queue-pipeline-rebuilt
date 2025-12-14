@@ -1,5 +1,5 @@
 const { Page } = require('./page/Page');
-const { DataStore } = require('./datastore/DataStore');
 const { WorkFlow } = require('./workflow/WorkFlow');
+const { PageStore } = require('./datastore/PageStore');
 
-module.exports = { DataStore, Page, WorkFlow };
+module.exports = { PageStore, Page, WorkFlow };

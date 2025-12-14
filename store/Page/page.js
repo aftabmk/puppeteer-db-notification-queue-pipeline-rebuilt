@@ -1,16 +1,18 @@
 // Page.js
 const zlib = require("zlib");
-const { ExchangeBuilder } = require("./utils/ExchangeBuilder");
+const { PageUtils } = require("./utils/PageUtils");
 
-class Page extends ExchangeBuilder {
+class Page extends PageUtils {
+  #isCached;
+  #database;
   #expiry_url;
-  #expiry_data;
 
   constructor(pageMeta) {
     super(pageMeta);
 
+    this.#isCached = false;
+    this.#database = [];
     this.#expiry_url = [];
-    this.#expiry_data = [];
   }
 
   getKey() {
@@ -34,12 +36,12 @@ class Page extends ExchangeBuilder {
   }
 
   insertArray(data) {
-    this.#expiry_data = data;
+    this.#database = data;
   }
 
   getData() {
     const { EXCHANGE, TYPE } = this.getParams();
-    const data = this.#expiry_data;
+    const data = this.#database;
 
     const json = JSON.stringify({ EXCHANGE, TYPE, data });
     const compressed = zlib.gzipSync(json);
@@ -48,11 +50,20 @@ class Page extends ExchangeBuilder {
   }
 
   clearExpiry() {
-    this.#expiry_data = [];
+    this.#database = [];
   }
 
   isCached() {
-    return this.#expiry_url.length !== 0;
+    // isCached invoked if sns message is succesfull
+    return this.#isCached;
+  }
+
+  setCache() {
+    this.#isCached = true;
+  }
+
+  clearCache() {
+    this.#isCached = false;
   }
 }
 

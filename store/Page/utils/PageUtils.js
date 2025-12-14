@@ -1,7 +1,7 @@
 // store/builders/ExchangeBuilder.js
 const { EXCHANGE_1, EXCHANGE_100 } = require('../../../constant');
 
-class ExchangeBuilder {
+class PageUtils {
     #meta;
     constructor(meta) {
         this.#meta = meta;
@@ -33,4 +33,4 @@ class ExchangeBuilder {
     }
 }
 
-module.exports = { ExchangeBuilder };
+module.exports = { PageUtils };

@@ -1,5 +1,5 @@
 const { PageType } = require('../types');
-const { Page, DataStore } = require('../store');
+const { Page, PageStore } = require('../store');
 
 // generate pages to scrape
 const pageRegistry = [
@@ -11,8 +11,7 @@ const pageRegistry = [
 ];
 
 const pageBuilder = () => {
-
-  DataStore.setPage(pageRegistry);
+  PageStore.setPage(pageRegistry);
 }
 
 

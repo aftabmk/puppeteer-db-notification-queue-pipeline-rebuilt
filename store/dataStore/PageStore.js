@@ -1,5 +1,5 @@
-// datastore.js
-class DataStore {
+// Pagestore.js
+class PageStore {
   // singleton cache
   static #pageCache = new Map();
 
@@ -35,4 +35,4 @@ class DataStore {
   }
 }
 
-module.exports = { DataStore };
+module.exports = { PageStore };

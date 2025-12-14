@@ -1,11 +1,11 @@
-const { DataStore, WorkFlow } = require("../store");
+const { PageStore, WorkFlow } = require("../store");
 
 class WorkflowInstance {
   static instance = null;
 
   constructor(manager) {
     this.manager = manager;
-    this.pages = DataStore.getAllPages();
+    this.pages = PageStore.getAllPages();
     this.workflows = this.pages.map((page) => new WorkFlow(manager, page));
   }
 
