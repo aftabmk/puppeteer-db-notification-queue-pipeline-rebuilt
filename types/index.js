@@ -1,7 +1,8 @@
 const { DataTypes } = require('./data');
+const { ViewPort } = require('./viewport');
 const { BrowserConfig } = require('./browser');
 const { PageType, PageParams } = require('./page');
 const { Request, ContentType, WaitUntil } = require('./network');
 
 
-module.exports = { ContentType, PageType, PageParams, WaitUntil, Request, BrowserConfig, DataTypes}
+module.exports = { ContentType, PageType, PageParams, WaitUntil, Request, BrowserConfig, DataTypes, ViewPort}

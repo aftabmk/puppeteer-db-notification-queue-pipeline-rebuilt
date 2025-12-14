@@ -1,0 +1,52 @@
+const { ViewPort } = require("../../../types");
+const { Evaluator } = require('../../evaluator/Evaluator');
+const { PageManager } = require('../../pageManager/PageManager');
+const { CookieManager } = require('../../cookieManager/CookieManager');
+const { RequestInterceptor } = require('../../interceptor/RequestInterceptor');
+
+class BrowserManagerUtils {
+  constructor(puppeteer, chromium, isLambda) {
+    this.puppeteer = puppeteer;
+    this.chromium = chromium;
+    this.isLambda = isLambda;
+
+    this.browser = null;
+    this.context = null;
+    this.pageManager = null;
+    this.cookieManager = null;
+    this.evaluator = null;
+    this.interceptor = null;
+  }
+
+  setOption(headless, devtools, args) {
+    switch (this.isLambda) {
+      case true:
+        return {
+          args: this.chromium.args,
+          executablePath: this.chromium.executablePath(),
+          headless: this.chromium.headless,
+          defaultViewport: this.chromium.defaultViewport,
+        };
+
+      default:
+        return {
+          headless,
+          devtools,
+          args,
+          defaultViewport: { width: ViewPort.Width, height: ViewPort.Height },
+        };
+    }
+  }
+  async launchBrowser(options) {
+    this.browser = await this.puppeteer.launch(options);
+    this.context = this.browser.defaultBrowserContext();
+
+    this.interceptor = new RequestInterceptor();
+    this.cookieManager = new CookieManager(this.context);
+
+    this.pageManager = new PageManager(this.context, this.cookieManager, this.interceptor);
+    this.evaluator = new Evaluator(this.pageManager);
+  }
+}
+
+module.exports = { BrowserManagerUtils };

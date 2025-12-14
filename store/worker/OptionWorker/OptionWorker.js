@@ -15,7 +15,8 @@ class OptionWorker extends OptionWorkerUtils {
         // fetch expiry
         await super.fetchExpiry()
         // send sns
-        await super.sendSNS();
+        console.log("sent sns message");
+        // await super.sendSNS();
     }
     
     async workflowCached() {
@@ -23,7 +24,8 @@ class OptionWorker extends OptionWorkerUtils {
         // fetch expiry
         await super.fetchExpiry()
         // send sns
-        await super.sendSNS();
+        console.log("sent sns message");
+        // await super.sendSNS();
     }
 }
 

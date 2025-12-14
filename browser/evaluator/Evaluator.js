@@ -38,7 +38,7 @@ class Evaluator {
         if(pagename == EXCHANGE_2)
           res = await fetch(url);
         else
-          res = await fetch(url, { headers, credentials: "include" });
+          res = await fetch(url, { headers,cache: 'no-store',credentials: "include" });
   
         const contentType = res.headers.get("content-type") || "";
 
