@@ -5,6 +5,7 @@ class Logger {
     return new Date(ts).toLocaleString("en-US", {
       hour: "numeric",
       minute: "numeric",
+      second : "numeric",
       hour12: true,
     });
   }
@@ -72,10 +73,10 @@ class Logger {
         );
       });
 
-      console.log("-".repeat(100) + "\n");
+      console.log("-".repeat(90) + "\n");
     }
 
-    console.log("=".repeat(40) + "LOGGER END" + "=".repeat(40));
+    console.log("=".repeat(40) + "LOGGER   END" + "=".repeat(40));
   }
 
   static getTime(date) {

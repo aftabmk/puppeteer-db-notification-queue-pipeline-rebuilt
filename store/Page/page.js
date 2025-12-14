@@ -14,7 +14,9 @@ class Page extends ExchangeBuilder {
   }
 
   getKey() {
-    return this.getMeta().EXCHANGE;
+    const { EXCHANGE, TYPE } = this.getMeta();
+    let key = EXCHANGE + "-" + TYPE;
+    return key;
   }
 
   getParams() {

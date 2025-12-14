@@ -3,7 +3,7 @@ const { ContentType } = require('../../types');
 class Evaluator {
   constructor(pageManager) {
     this.pageManager = pageManager;
-    this.cookieManager = this.pageManager.cookieManager;
+    this.cookieManager = this.pageManager.cookieManager; // ✅ direct link
   }
 
   async buildHeaders(pageName) {
@@ -27,12 +27,13 @@ class Evaluator {
       ...(cookieHeader ? { Cookie: cookieHeader } : {}),
     };
 
+    // console.log(`🔖 Built headers for "${pageName}" (cookies: ${cookies.length})`);
     return headers;
   }
 
   async evaluateFetch(page, url, pagename, headers) {
     // debugger
-    return await page.evaluate(async ({ url, headers, pagename, EXCHANGE_2}) => {
+    return await page.evaluate(async ({ url, headers, pagename, EXCHANGE_2 }) => {
       try {
         let res;
         if(pagename == EXCHANGE_2)
@@ -42,7 +43,7 @@ class Evaluator {
   
         const contentType = res.headers.get("content-type") || "";
 
-        if (!contentType.includes(ContentType.APPLICATION_JSON)) {
+        if (!contentType.includes("application/json")) {
           return {
             status: 400,
             data: [],
@@ -70,6 +71,7 @@ class Evaluator {
     if (!page) throw new Error(`Page "${pageName}" not found`);
 
     for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      // console.log(`🧪 Attempt ${attempt} for ${url}`);
 
       const headers = await this.buildHeaders(pageName);
       const result = await this.evaluateFetch(page, url, pageName,headers);
@@ -78,7 +80,7 @@ class Evaluator {
         // console.log(`✅ Fetch succeeded on attempt ${attempt}`);
         return result;
       }
-
+      // ✅ Use PageManager’s built-in reload function
       await this.pageManager.reloadPage(pageName);
     }
 
@@ -90,6 +92,7 @@ class Evaluator {
     const page = this.pageManager.getPage(pageName);
     if (!page) throw new Error(`Page "${pageName}" not found`);
 
+    // console.log(`🌐 Fetching URL inside page "${pageName}": ${url}`);
     const result = await this.attemptFetchWithRetry(pageName, url, 3);
     return result;
   }

@@ -8,6 +8,7 @@ const main = async () => {
   const workflow = WorkflowInstance.getInstance(manager);
   // Run the workflow
   await workflow.run();
+  // debugger;
 };
 
 const close = async() => {

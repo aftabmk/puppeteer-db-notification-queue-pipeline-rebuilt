@@ -53,14 +53,14 @@ class PageManager {
   /**
    * Delete a page safely and detach interceptor.
    */
-  async deletePage(name) {
-    const page = this.pages.get(name);
+  async deletePage(key) {
+    const page = this.pages.get(key);
     if (!page) return;
 
     if (this.interceptor) await this.interceptor.detach(page);
 
     await page.close();
-    this.pages.delete(name);
+    this.pages.delete(key);
   }
 }
 

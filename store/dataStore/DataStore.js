@@ -1,15 +1,20 @@
 // datastore.js
+const { Page } = require('../index');
 
 class DataStore {
   // singleton cache
   static #pageCache = new Map();
 
-  static setPage(page) {
-    if (!page || typeof page.getKey !== 'function') {
-      throw new Error('Invalid Page object: must have getKey() method.');
+  static setPage(pageRegistry = {}) {
+    for(let page of pageRegistry) {
+      if (!page || typeof page.getKey !== 'function') {
+        throw new Error('Invalid Page object: must have getKey() method.');
+      }
+
+      const key = page.getKey();
+      
+      this.#pageCache.set(key, page);
     }
-    const key = page.getKey();
-    this.#pageCache.set(key, page);
   }
 
   static getPage(key) {

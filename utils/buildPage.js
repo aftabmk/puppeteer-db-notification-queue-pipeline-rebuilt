@@ -1,14 +1,16 @@
 const { PageType } = require('../types');
 const { Page, DataStore } = require('../store');
 
+// generate pages to scrape
+const pageRegistry = [
+  new Page(PageType.PageType_1),
+  new Page(PageType.PageType_2)
+];
+
 const pageBuilder = () => {
-
-  // const page1 = new Page(PageType.PageType_1);
-  const page2 = new Page(PageType.PageType_2);
-
-  // DataStore.setPage(page1);
-  DataStore.setPage(page2);
+  DataStore.setPage(pageRegistry);
   // debugger;
 }
 
-module.exports = { pageBuilder }
+
+  module.exports = { pageBuilder }

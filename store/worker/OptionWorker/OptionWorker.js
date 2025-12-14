@@ -15,7 +15,7 @@ class OptionWorker extends OptionWorkerUtils {
         // fetch expiry
         await super.fetchExpiry()
         // send sns
-        console.log("sent sns message");
+        console.log("skip sns sending");
         // await super.sendSNS();
     }
     
@@ -24,7 +24,7 @@ class OptionWorker extends OptionWorkerUtils {
         // fetch expiry
         await super.fetchExpiry()
         // send sns
-        console.log("sent sns message");
+        console.log("skip sns sending");
         // await super.sendSNS();
     }
 }
