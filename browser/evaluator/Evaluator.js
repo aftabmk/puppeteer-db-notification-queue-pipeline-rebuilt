@@ -1,32 +1,22 @@
 const { EXCHANGE_100 } = require("../../constant");
 const { ContentType } = require("../../types");
-class Evaluator {
+const { EvaluatorUtils } = require('./utils/EvaluatorUtils');
+class Evaluator extends EvaluatorUtils {
   constructor(pageManager) {
-    this.pageManager = pageManager;
-    this.cookieManager = this.pageManager.cookieManager; // ✅ direct link
+    super(pageManager);
   }
 
-  async buildHeaders(pageName) {
+  async buildHeaders(pageId) {
     if (!this.cookieManager) throw new Error("CookieManager not initialized via PageManager");
 
-    let cookies = this.cookieManager.cookieStore.get(pageName);
-    if (!cookies || cookies.length === 0) {
-      // console.log(`⚙️ No cookies cached for "${pageName}". Fetching from browser...`);
-      cookies = await this.cookieManager.getCookies(pageName);
-    }
-
+    let cookies = this.getCachedCookie(pageId);
+    if (!cookies || cookies.length === 0) 
+      cookies = await this.fetchCookie(pageId);
+    
     const cookieHeader = cookies.map((c) => `${c.name}=${c.value}`).join("; ");
 
-    const headers = {
-      Accept: "application/json, text/plain, */*",
-      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
-      Referer: process.env.REFERER_1,
-      "Accept-Encoding": "gzip, deflate, br",
-      Connection: "keep-alive",
-      ...(cookieHeader ? { Cookie: cookieHeader } : {}),
-    };
-
-    // console.log(`🔖 Built headers for "${pageName}" (cookies: ${cookies.length})`);
+    const headers = this.getHeader(cookieHeader);
+    // console.log(`🔖 Built headers for "${pageId}" (cookies: ${cookies.length})`);
     return headers;
   }
 
@@ -34,8 +24,12 @@ class Evaluator {
   async fetchEval({ url, headers, pagename, EXCHANGE_100, ContentType }) {
     try {
       let res;
-      if (pagename == EXCHANGE_100) res = await fetch(url);
-      else res = await fetch(url, { headers, credentials: "include" });
+      
+      
+      if (pagename.includes(EXCHANGE_100)) 
+        res = await fetch(url);
+      else 
+        res = await fetch(url, { headers, credentials: "include" });
       
       const contentType = res.headers.get("content-type") || "";
       
@@ -67,22 +61,22 @@ class Evaluator {
     return await page.evaluate(this.fetchEval, { url, headers, pagename, EXCHANGE_100, ContentType });
   }
 
-  async attemptFetchWithRetry(pageName, url, maxAttempts = 3) {
-    const page = this.pageManager.getPage(pageName);
-    if (!page) throw new Error(`Page "${pageName}" not found`);
+  async attemptFetchWithRetry(pageId, url, maxAttempts = 3) {
+    const page = this.pageManager.getPage(pageId);
+    if (!page) throw new Error(`Page "${pageId}" not found`);
 
     for (let attempt = 1; attempt <= maxAttempts; attempt++) {
       // console.log(`🧪 Attempt ${attempt} for ${url}`);
 
-      const headers = await this.buildHeaders(pageName);
-      const result = await this.evaluateFetch(page, url, pageName, headers);
+      const headers = await this.buildHeaders(pageId);
+      const result = await this.evaluateFetch(page, url, pageId, headers);
 
       if (result.status === 200) {
         // console.log(`✅ Fetch succeeded on attempt ${attempt}`);
         return result;
       }
       // ✅ Use PageManager’s built-in reload function
-      await this.pageManager.reloadPage(pageName);
+      await this.pageManager.reloadPage(pageId);
     }
 
     console.error(`❌ All ${maxAttempts} attempts failed for ${url}`);
