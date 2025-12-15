@@ -18,12 +18,7 @@ const local = async () => {
   const [, , intervalArg,runsArg] = process.argv;
   const interval = parseInt(intervalArg, 10), iterations = parseInt(runsArg,10);
   
-  if (isNaN(interval)) {
-    console.warn(warn);
-    return;
-  }
-  
-  if(isNaN(iterations)) {
+  if (isNaN(interval) || isNaN(iterations)) {
     console.warn(warn);
     return;
   }

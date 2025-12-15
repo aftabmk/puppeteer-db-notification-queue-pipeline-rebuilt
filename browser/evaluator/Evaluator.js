@@ -1,5 +1,4 @@
-const { EXCHANGE_100 } = require("../../constant");
-const { ContentType } = require("../../types");
+const { ContentType, Exchange} = require("../../types");
 const { EvaluatorUtils } = require('./utils/EvaluatorUtils');
 class Evaluator extends EvaluatorUtils {
   constructor(pageManager) {
@@ -16,49 +15,12 @@ class Evaluator extends EvaluatorUtils {
     const cookieHeader = cookies.map((c) => `${c.name}=${c.value}`).join("; ");
 
     const headers = this.getHeader(cookieHeader);
-    // console.log(`🔖 Built headers for "${pageId}" (cookies: ${cookies.length})`);
     return headers;
   }
 
-  
-  async fetchEval({ url, headers, pagename, EXCHANGE_100, ContentType }) {
-    try {
-      let res;
-      
-      
-      if (pagename.includes(EXCHANGE_100)) 
-        res = await fetch(url);
-      else 
-        res = await fetch(url, { headers, credentials: "include" });
-      
-      const contentType = res.headers.get("content-type") || "";
-      
-      if (!contentType.includes(ContentType.APPLICATION_JSON)) {
-        return {
-          status: 400,
-          data: [],
-          message: `Unexpected content-type: ${contentType}`,
-        };
-      }
-      
-      const data = await res.json();
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      
-      // debugger
-      return { status: 200, data, message: "Success" };
-    } 
-    catch (err) {
-      return {
-        status: 400,
-        data: [],
-        message: err.message || "Unexpected error",
-      };
-    }
-  }
-
-  async evaluateFetch(page, url, pagename, headers) {
+  async evaluateFetch(page, url, pageId, headers) {
     // debugger
-    return await page.evaluate(this.fetchEval, { url, headers, pagename, EXCHANGE_100, ContentType });
+    return await page.evaluate(this.fetchEval, { url, headers, pageId, ContentType, Exchange });
   }
 
   async attemptFetchWithRetry(pageId, url, maxAttempts = 3) {
@@ -72,7 +34,6 @@ class Evaluator extends EvaluatorUtils {
       const result = await this.evaluateFetch(page, url, pageId, headers);
 
       if (result.status === 200) {
-        // console.log(`✅ Fetch succeeded on attempt ${attempt}`);
         return result;
       }
       // ✅ Use PageManager’s built-in reload function
@@ -87,7 +48,7 @@ class Evaluator extends EvaluatorUtils {
     const page = this.pageManager.getPage(pageId);
     if (!page) throw new Error(`Page "${pageId}" not found`);
 
-    // console.log(`🌐 Fetching URL inside page "${pageId}": ${url}`);
+    // console.log(` Fetching URL inside page "${pageId}": ${url}`);
     const result = await this.attemptFetchWithRetry(pageId, url, 3);
     return result;
   }

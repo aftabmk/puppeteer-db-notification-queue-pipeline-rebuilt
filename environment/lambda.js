@@ -7,14 +7,16 @@ const lambda = async () => {
       status: 200,
       message: "Workflow completed successfully",
     };
-  } catch (error) {
+  } 
+  catch (error) {
     console.error("❌ Error in workflow:", error);
 
     // Close resources only if there was an error
     try {
       await close();
       console.log("🧹 Closed resources after failure.");
-    } catch (closeErr) {
+    } 
+    catch (closeErr) {
       console.error("⚠️ Failed to close resources:", closeErr);
     }
 
