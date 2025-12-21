@@ -39,11 +39,17 @@ class Page extends PageUtils {
     this.#database = data;
   }
 
+  getISOString() {
+    let time = new Date().getTime();
+    let offSet = 5.5 * 60 * 60 * 1000;
+    return new Date(time + offSet).toISOString();
+  }
+  
   getData() {
     const { EXCHANGE, TYPE } = this.getParams();
-    const data = this.#database;
+    const time = this.getISOString(), data = this.#database;
 
-    const json = JSON.stringify({ EXCHANGE, TYPE, data });
+    const json = JSON.stringify({ EXCHANGE, TYPE, data, time });
     const compressed = zlib.gzipSync(json);
 
     return compressed.toString("base64");
