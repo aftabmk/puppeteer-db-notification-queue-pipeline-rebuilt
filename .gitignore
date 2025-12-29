@@ -1,8 +1,7 @@
 random.js
 # modules
 node_modules
-data/*json
 # json
-*lock.json
+*.json
 # env
 .env

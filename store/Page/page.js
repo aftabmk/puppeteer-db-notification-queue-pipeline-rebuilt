@@ -6,12 +6,14 @@ class Page extends PageUtils {
   #isCached;
   #database;
   #expiry_url;
+  #compressed;
 
   constructor(meta) {
     super(meta);
 
     this.#database = [];
     this.#expiry_url = [];
+    this.#compressed = [];
     this.#isCached = false;
   }
 
@@ -52,7 +54,8 @@ class Page extends PageUtils {
     const json = JSON.stringify({ EXCHANGE, TYPE, data, time });
     const compressed = zlib.gzipSync(json);
 
-    return compressed.toString("base64");
+    this.#compressed = compressed.toString("base64");
+    return this.#compressed;
   }
 
   clearExpiry() {
