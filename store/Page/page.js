@@ -22,7 +22,7 @@ class Page extends PageUtils {
     const KEY = EXCHANGE + "-" + TYPE;
     return KEY;
   }
-  
+
   getParams() {
     // const { EXCHANGE, TYPE, PAGE_URL, API_URL } = this.getMeta();
     return this.getMeta();
@@ -46,15 +46,27 @@ class Page extends PageUtils {
     let offSet = 5.5 * 60 * 60 * 1000;
     return new Date(time + offSet).toISOString();
   }
-  
+
   getData() {
     const { EXCHANGE, TYPE } = this.getParams();
-    const time = this.getISOString(), data = this.#database;
+    const time = this.getISOString();
+    const data = this.#database;
 
-    const json = JSON.stringify({ EXCHANGE, TYPE, data, time });
-    const compressed = zlib.gzipSync(json);
+    // 1. Create the object
+    const payload = { EXCHANGE, TYPE, data, time };
 
+    // 2. Explicitly stringify and ensure it's standard UTF-8
+    // We use a replacer if necessary, but standard stringify is usually fine
+    const jsonString = JSON.stringify(payload);
+
+    // 3. Compress the buffer directly
+    // Node's gzipSync handles buffers more reliably than raw strings
+    const buffer = Buffer.from(jsonString, "utf-8");
+    const compressed = zlib.gzipSync(buffer);
+
+    // 4. Convert to base64
     this.#compressed = compressed.toString("base64");
+
     return this.#compressed;
   }
 
