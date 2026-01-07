@@ -4,7 +4,7 @@ if (!process.env.AWS_EXECUTION_ENV) {
 }
 
 const { 
-    TOPIC_ARN,
+    TOPIC_ARN,QUEUE_URL,
     
     EXCHANGE_1, PAGE_URL_1, API_URL_1, API_URL_BUILDER_1, 
     EXCHANGE_2, PAGE_URL_2, API_URL_2, API_URL_BUILDER_2, 
@@ -16,7 +16,7 @@ const {
 } = process.env;
 
 module.exports = { 
-    TOPIC_ARN,
+    TOPIC_ARN,QUEUE_URL,
     
     EXCHANGE_1, PAGE_URL_1, API_URL_1, API_URL_BUILDER_1, 
     EXCHANGE_2, PAGE_URL_2, API_URL_2, API_URL_BUILDER_2, 

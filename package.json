@@ -6,11 +6,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
+  "type":"commonjs",
   "author": "",
   "license": "ISC",
   "description": "",
-  "dependencies" : {
+  "dependencies": {
     "@aws-sdk/client-sns": "^3.922.0",
+    "@aws-sdk/client-sqs": "^3.960.0",
     "dotenv": "^17.2.3",
     "puppeteer": "^24.26.1",
     "puppeteer-extra": "^3.3.6",

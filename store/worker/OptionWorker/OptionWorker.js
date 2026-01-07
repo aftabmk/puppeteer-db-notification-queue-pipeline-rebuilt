@@ -16,6 +16,7 @@ class OptionWorker extends OptionWorkerUtils {
         await super.fetchExpiry()
         // send sns
         await super.sendSNS();
+        // await super.sendSQS();
     }
     
     async workflowCached() {
@@ -24,6 +25,7 @@ class OptionWorker extends OptionWorkerUtils {
         await super.fetchExpiry()
         // send sns
         await super.sendSNS();
+        // await super.sendSQS();
     }
 }
 

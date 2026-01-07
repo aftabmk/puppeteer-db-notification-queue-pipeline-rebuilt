@@ -1,6 +1,7 @@
 const { WorkerUtils } = require("./utils/WorkerUtils");
-const { TOPIC_ARN, AWS_REGION } = require("../../../constant");
+const { TOPIC_ARN, QUEUE_URL ,AWS_REGION } = require("../../../constant");
 const { SNSClient, PublishCommand } = require("@aws-sdk/client-sns");
+const { SQSClient, SendMessageCommand } = require("@aws-sdk/client-sqs");
 
 class Worker extends WorkerUtils {
   constructor(manager, page) {
@@ -8,12 +9,12 @@ class Worker extends WorkerUtils {
   }
 
   async navigate() {
-    const { waitUntil, page_url,key } = this.params;
+    const { waitUntil, page_url, key } = this.params;
 
     const page = await this.manager.pageManager.newPage(key);
     await page.goto(page_url, { waitUntil });
   }
-  
+
   async fetch() {
     const { key, api_url } = this.params;
     // find page with key and fetch api
@@ -25,8 +26,7 @@ class Worker extends WorkerUtils {
     // debugger;
     for (let payload of payloadArr) {
       const { data, status } = payload;
-      if (status === 200) 
-        this.filterDataArray.push(data);
+      if (status === 200) this.filterDataArray.push(data);
     }
   }
 
@@ -45,9 +45,32 @@ class Worker extends WorkerUtils {
       this.page.setCache();
 
       return response;
-    } 
-    catch (e) {
+    } catch (e) {
       console.error("Error sending SNS:", e);
+      throw e;
+    }
+  }
+
+  async sendSQS() {
+    const sqs = new SQSClient({ region: AWS_REGION });
+
+    try {
+      // Raw binary Buffer (MessagePack)
+      const message = this.page.getData(); // Buffer
+
+      const command = new SendMessageCommand({
+        QueueUrl: QUEUE_URL,
+        MessageBody: message, // Buffer is allowed
+      });
+
+      const response = await sqs.send(command);
+
+      // set cache
+      this.page.setCache();
+
+      return response;
+    } catch (e) {
+      console.error("Error sending SQS:", e);
       throw e;
     }
   }

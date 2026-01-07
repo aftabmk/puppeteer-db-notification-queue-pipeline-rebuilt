@@ -1,6 +1,7 @@
 // Page.js
-const zlib = require("zlib");
+// const zlib = require("zlib");
 const { PageUtils } = require("./utils/PageUtils");
+const { compressJson } = require("./utils/utilFn");
 
 class Page extends PageUtils {
   #isCached;
@@ -52,20 +53,11 @@ class Page extends PageUtils {
     const time = this.getISOString();
     const data = this.#database;
 
-    // 1. Create the object
+    // Construct payload
     const payload = { EXCHANGE, TYPE, data, time };
-
-    // 2. Explicitly stringify and ensure it's standard UTF-8
-    // We use a replacer if necessary, but standard stringify is usually fine
-    const jsonString = JSON.stringify(payload);
-
-    // 3. Compress the buffer directly
-    // Node's gzipSync handles buffers more reliably than raw strings
-    const buffer = Buffer.from(jsonString, "utf-8");
-    const compressed = zlib.gzipSync(buffer);
-
-    // 4. Convert to base64
-    this.#compressed = compressed.toString("base64");
+    const compressedData = compressJson(payload);
+    // IMPORTANT: return raw binary Buffer
+    this.#compressed = JSON.stringify(compressedData);
 
     return this.#compressed;
   }

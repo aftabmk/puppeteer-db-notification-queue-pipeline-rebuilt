@@ -13,6 +13,7 @@ class FutureWorker extends FutureWorkerUtils {
         super.processData();
         // send sns
         await super.sendSNS();
+        // await super.sendSQS();
     }
     
     async workflowCached() {
@@ -21,6 +22,7 @@ class FutureWorker extends FutureWorkerUtils {
         super.processData();
         // send sns
         await super.sendSNS();
+        // await super.sendSQS();
     }
 }
 
