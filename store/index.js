@@ -1,4 +1,4 @@
-const { Page } = require('./page/page');
+const { Page } = require('./Page/page');
 const { WorkFlow } = require('./workflow/WorkFlow');
 const { PageStore } = require('./datastore/PageStore');
 
