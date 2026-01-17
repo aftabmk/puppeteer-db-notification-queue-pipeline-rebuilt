@@ -25,8 +25,8 @@ class BrowserFactoryUtils {
       const puppeteer = require("puppeteer-core");
       const chromium = require("@sparticuz/chromium");
       
-	  this.puppeteer = puppeteer.default;
-      this.chromium = chromium.default;
+	    this.puppeteer = puppeteer.default;
+      this.chromium = chromium;
   }
 
   static setLocalEnvironment() {

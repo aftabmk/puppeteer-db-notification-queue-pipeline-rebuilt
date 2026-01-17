@@ -7,7 +7,7 @@ class BrowserManager extends BrowserManagerUtils {
   }
 
   async launch({ headless, devtools, args }) {
-    let options = this.setOption(headless,devtools,args);
+    let options = await this.setOption(headless,devtools,args);
     await this.launchBrowser(options);
 
     LOG.LAUNCH(this.isLambda,headless);

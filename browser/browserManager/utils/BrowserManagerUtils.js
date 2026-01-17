@@ -18,12 +18,12 @@ class BrowserManagerUtils {
     this.interceptor = null;
   }
 
-  setOption(headless, devtools, args) {
+  async setOption(headless, devtools, args) {
     switch (this.isLambda) {
       case true:
         return {
           args: this.chromium.args,
-          executablePath: this.chromium.executablePath(),
+          executablePath: await this.chromium.executablePath(),
           headless: this.chromium.headless,
           defaultViewport: this.chromium.defaultViewport,
         };
