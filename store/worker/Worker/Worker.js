@@ -41,6 +41,7 @@ class Worker extends WorkerUtils {
       });
 
       const response = await sns.send(command);
+      debugger;
       // set cache
       this.page.setCache();
 
