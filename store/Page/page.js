@@ -56,7 +56,7 @@ class Page extends PageUtils {
     // Construct payload
     const payload = { EXCHANGE, TYPE, data, time };
     
-    console.log(JSON.stringify(payload));
+    console.log((payload));
 
     const compressedData = compressJson(payload);
     // IMPORTANT: return raw binary Buffer
