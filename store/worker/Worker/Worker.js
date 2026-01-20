@@ -13,8 +13,6 @@ class Worker extends WorkerUtils {
     const page = await this.manager.pageManager.newPage(key);
     
     await page.goto(process.env.REFERER_1, { waitUntil });
-    await page.waitForTimeout(3000);
-    
     await page.goto(page_url, { waitUntil });
   }
 
