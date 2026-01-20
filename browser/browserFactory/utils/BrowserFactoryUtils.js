@@ -22,7 +22,7 @@ class BrowserFactoryUtils {
   }
   static setLambdaEnvironment() {
       console.log("🚀 Lambda environment detected");
-      const puppeteer = require("puppeteer-core");
+      const puppeteer = require("puppeteer-extra");
       const StealthPlugin = require("puppeteer-extra-plugin-stealth");
       const chromium = require("@sparticuz/chromium");
       
