@@ -26,8 +26,8 @@ class BrowserFactoryUtils {
       const StealthPlugin = require("puppeteer-extra-plugin-stealth");
       const chromium = require("@sparticuz/chromium");
       
-      puppeteer.use(StealthPlugin());
-	    this.puppeteer = puppeteer.default;
+	    this.puppeteer = puppeteer;
+      this.puppeteer.use(StealthPlugin());
       this.chromium = chromium;
   }
 
