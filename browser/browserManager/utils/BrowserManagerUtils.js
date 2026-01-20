@@ -23,9 +23,9 @@ class BrowserManagerUtils {
       case true: {
         const argument = {
           args: this.chromium.args,
+          defaultViewport: { width: 640, height: 400 },
           executablePath: await this.chromium.executablePath(),
-          headless: this.chromium.headless,
-          defaultViewport: this.chromium.defaultViewport,
+          headless: "new",
         };
 
         console.log(argument);
