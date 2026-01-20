@@ -41,7 +41,7 @@ class EvaluatorUtils {
           break;
         }
         default: {
-          console.warn("The exchange input doest satisfy 'Exchange Type', exchange : %s", exchange);
+          console.warn("The exchange input doest satisfy 'Exchange Type', exchange : %s", Exchange);
           response = "";
           break;
         }

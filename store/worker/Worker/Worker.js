@@ -10,13 +10,13 @@ class Worker extends WorkerUtils {
 
   async navigate() {
     const { waitUntil, page_url, key } = this.params;
-
+    console.log(this.params);
     const page = await this.manager.pageManager.newPage(key);
+    console.log(page);
     await page.goto(page_url, { waitUntil });
   }
 
   async fetch() {
-    console.log(this.params);
     const { key, api_url } = this.params;
     // find page with key and fetch api
     this.result = await this.manager.evaluator.fetchInsidePage(key, api_url);
