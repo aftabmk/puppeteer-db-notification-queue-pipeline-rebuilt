@@ -19,27 +19,32 @@ class BrowserManagerUtils {
   }
 
   async setOption(headless, devtools, args) {
+    let options;
     switch (this.isLambda) {
       case true: {
-        const argument = {
+        options = {
           args: this.chromium.args,
           executablePath: await this.chromium.executablePath(),
           headless: "new",
         };
-        return argument;
       }
 
-      default : {
-        const argument = {
+      case false : {
+        options = {
           headless,
           devtools,
           args,
           defaultViewport: { width: ViewPort.Width, height: ViewPort.Height },
         };
+      }
 
-        return argument;
+      default : {
+        options = '';
+        console.log("setoption failed");
       }
     }
+
+    return options;
   }
   async launchBrowser(options) {
     this.browser = await this.puppeteer.launch(options);
