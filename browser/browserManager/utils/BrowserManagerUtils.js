@@ -20,13 +20,17 @@ class BrowserManagerUtils {
 
   async setOption(headless, devtools, args) {
     switch (this.isLambda) {
-      case true:
-        return {
+      case true: {
+        const argument = {
           args: this.chromium.args,
           executablePath: await this.chromium.executablePath(),
           headless: this.chromium.headless,
           defaultViewport: this.chromium.defaultViewport,
         };
+
+        console.log(argument);
+        return argument;
+      }
 
       default:
         return {
