@@ -15,7 +15,6 @@ class Evaluator extends EvaluatorUtils {
     const cookieHeader = cookies.map((c) => `${c.name}=${c.value}`).join("; ");
 
     const headers = this.getHeader(cookieHeader);
-    console.log(headers);
     return headers;
   }
 

@@ -16,6 +16,7 @@ class Worker extends WorkerUtils {
   }
 
   async fetch() {
+    console.log(this.params);
     const { key, api_url } = this.params;
     // find page with key and fetch api
     this.result = await this.manager.evaluator.fetchInsidePage(key, api_url);
