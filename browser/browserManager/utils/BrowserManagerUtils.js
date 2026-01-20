@@ -26,18 +26,19 @@ class BrowserManagerUtils {
           executablePath: await this.chromium.executablePath(),
           headless: "new",
         };
-
-        console.log(argument);
         return argument;
       }
 
-      default:
-        return {
+      default : {
+        const argument = {
           headless,
           devtools,
           args,
           defaultViewport: { width: ViewPort.Width, height: ViewPort.Height },
         };
+
+        return argument;
+      }
     }
   }
   async launchBrowser(options) {
