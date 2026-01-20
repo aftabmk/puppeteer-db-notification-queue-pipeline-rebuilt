@@ -10,9 +10,7 @@ class Worker extends WorkerUtils {
 
   async navigate() {
     const { waitUntil, page_url, key } = this.params;
-    console.log(this.params);
     const page = await this.manager.pageManager.newPage(key);
-    console.log(page);
     await page.goto(page_url, { waitUntil });
   }
 

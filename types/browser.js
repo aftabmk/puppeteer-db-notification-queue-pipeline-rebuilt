@@ -8,7 +8,7 @@ const BrowserConfig = Object.freeze({
   LAMBDA: Object.freeze({
     headless: true,
     devtools: false,
-    args: ["--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage"],
+    args: ["--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage","--disable-http2"],
   }),
 });
 
