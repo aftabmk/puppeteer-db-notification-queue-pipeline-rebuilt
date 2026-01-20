@@ -2,7 +2,6 @@ class Logger {
   static store = new Map();
 
   static format(ts) {
-    console.log(ts);
     return new Date(ts).toLocaleString("en-US", {
       hour: "numeric",
       minute: "numeric",
@@ -13,7 +12,6 @@ class Logger {
 
   static start(id, fnName) {
     const startTs = Date.now();
-    console.log(startTs);
     const start = Logger.format(startTs);
 
     if (!Logger.store.has(id)) Logger.store.set(id, []);
