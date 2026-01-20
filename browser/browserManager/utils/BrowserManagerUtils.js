@@ -27,6 +27,8 @@ class BrowserManagerUtils {
           executablePath: await this.chromium.executablePath(),
           headless: "new",
         };
+
+        break;
       }
 
       case false : {
@@ -36,6 +38,8 @@ class BrowserManagerUtils {
           args,
           defaultViewport: { width: ViewPort.Width, height: ViewPort.Height },
         };
+
+        break;
       }
 
       default : {
