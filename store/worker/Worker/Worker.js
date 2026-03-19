@@ -34,6 +34,8 @@ class Worker extends WorkerUtils {
     try {
       const message = this.page.getData();
 
+      debugger;
+
       const command = new PublishCommand({
         TopicArn: TOPIC_ARN,
         Message: message,
@@ -47,7 +49,7 @@ class Worker extends WorkerUtils {
       return response;
     } catch (e) {
       console.error("Error sending SNS:", e);
-      throw e;
+      // throw e;
     }
   }
 
@@ -71,7 +73,7 @@ class Worker extends WorkerUtils {
       return response;
     } catch (e) {
       console.error("Error sending SQS:", e);
-      throw e;
+      // throw e;
     }
   }
 }
