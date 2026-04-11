@@ -57,8 +57,18 @@ class Page extends PageUtils {
     const payload = { EXCHANGE, TYPE, data, time };
 
     const compressedData = compressJson(payload);
+    
+    const size = (compressedData.length / 1024).toFixed(2);
+    console.log(`page : exchnage : ${EXCHANGE}, type : ${TYPE}, size : ${size} kb`);
+    
+    // debugger
     // IMPORTANT: return raw binary Buffer
-    this.#compressed = JSON.stringify(compressedData);
+    const compressType = { STRINGFIFY : JSON.stringify(compressedData), BASE_64 : compressedData.toString("base64")};
+
+    this.#compressed = compressType.BASE_64;
+    
+    debugger;
+    // throw Error("update compression");
 
     return this.#compressed;
   }

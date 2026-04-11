@@ -6,7 +6,7 @@ function compressJson(jsonData) {
       ? jsonData
       : JSON.stringify(jsonData);
 
-  return zlib.gzipSync(jsonString, { level: 9 });
+  return zlib.gzipSync(jsonString, { level: 1 });
 }
 
 module.exports = { compressJson };

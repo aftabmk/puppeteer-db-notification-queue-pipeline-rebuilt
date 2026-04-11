@@ -33,8 +33,7 @@ class Worker extends WorkerUtils {
     const sns = new SNSClient({ region: AWS_REGION });
     try {
       const message = this.page.getData();
-
-      debugger;
+      // debugger;
 
       const command = new PublishCommand({
         TopicArn: TOPIC_ARN,
